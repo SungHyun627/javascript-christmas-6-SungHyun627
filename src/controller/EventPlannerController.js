@@ -1,17 +1,29 @@
 import InputView from '../view/InputView.js';
+import InputValidator from '../validator/InputValidator.js';
+import OutputView from '../view/OutputView.js';
 
 class EventPlannerController {
   #inputView;
+  #outputView;
   constructor() {
     this.#inputView = new InputView();
+    this.#outputView = new OutputView();
   }
 
   async start() {
-    await this.getVisitDate();
+    const visitDate = await this.getVisitDate();
   }
 
   async getVisitDate() {
-    const visitDate = Number(await this.#inputView.readVisitDate());
+    while (true) {
+      const visitDate = await this.#inputView.readVisitDate();
+      try {
+        InputValidator.validateVisitDate(visitDate);
+        return Number(visitDate);
+      } catch (error) {
+        this.#outputView.printErrorMessage(error.message);
+      }
+    }
   }
 }
 

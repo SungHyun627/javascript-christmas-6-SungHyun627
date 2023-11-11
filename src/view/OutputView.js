@@ -1,9 +1,9 @@
-const OutputView = {
-  printMenu() {
-    Console.print('<주문 메뉴>');
-    // ...
-  },
-  // ...
-};
+import { Console } from '@woowacourse/mission-utils';
+
+class OutputView {
+  printErrorMessage(errorMessage) {
+    Console.print(errorMessage);
+  }
+}
 
 export default OutputView;
