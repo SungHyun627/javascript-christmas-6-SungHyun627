@@ -1,5 +1,11 @@
+import EventPlannerController from './controller/EventPlannerController.js';
 class App {
-  async run() {}
+  #eventPlannerController;
+
+  async run() {
+    this.#eventPlannerController = new EventPlannerController();
+    await this.#eventPlannerController.start();
+  }
 }
 
 export default App;
