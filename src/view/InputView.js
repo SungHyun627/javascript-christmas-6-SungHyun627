@@ -7,6 +7,10 @@ class InputView {
     this.#input = await Console.readLineAsync(GUIDE_MESSAGES.ENTER_VISIT_DATE);
     return this.#input;
   }
+  async readMenus() {
+    this.#input = await Console.readLineAsync(GUIDE_MESSAGES.ENTER_MENUS);
+    return this.#input;
+  }
 }
 
 export default InputView;

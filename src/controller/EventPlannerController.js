@@ -12,18 +12,24 @@ class EventPlannerController {
 
   async start() {
     const visitDate = await this.getVisitDate();
+    const menus = await this.getMenus();
   }
 
   async getVisitDate() {
     while (true) {
-      const visitDate = await this.#inputView.readVisitDate();
+      const visitDateInput = await this.#inputView.readVisitDate();
       try {
-        InputValidator.validateVisitDate(visitDate);
-        return Number(visitDate);
+        InputValidator.validateVisitDate(visitDateInput);
+        return Number(visitDateInput);
       } catch (error) {
         this.#outputView.printErrorMessage(error.message);
       }
     }
+  }
+
+  async getMenus() {
+    const menusInput = await this.#inputView.readMenus();
+    return menusInput;
   }
 }
 
