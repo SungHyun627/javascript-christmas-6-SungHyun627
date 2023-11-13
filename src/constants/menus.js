@@ -63,3 +63,4 @@ export const MENU_PROPERTIES = Object.freeze({
 });
 
 export const MIN_ORDERED_MENU_COUNT = 1;
+export const MAX_TOTAL_COUNTS = 20;

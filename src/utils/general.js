@@ -21,7 +21,7 @@ export const getOrderedMenusNames = (menusInput) => {
 export const getOrderedMenusCounts = (menusInput) => {
   return menusInput.split(MENU_SEPARATOR).map((menu) => {
     const [menuName, menuCount] = menu.split(MENU_COUNT_SEOARATOR);
-    return menuCount;
+    return Number(menuCount);
   });
 };
 

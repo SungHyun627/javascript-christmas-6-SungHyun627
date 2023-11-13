@@ -1,5 +1,6 @@
 import {
   MENU_LIST,
+  MAX_TOTAL_COUNTS,
   MENU_PROPERTIES,
   MENU_TYPES,
   MIN_ORDERED_MENU_COUNT,
@@ -26,6 +27,7 @@ class InputValidator {
     this.validateEveryOrderedMenuCountIsBiggerThanZero(menus);
     this.validateIsDuplicatedMenuName(menus);
     this.validateOnlyDrinkInOrderedMenus(menus);
+    this.validateTotalCounts(menus);
 
     return true;
   }
@@ -79,6 +81,16 @@ class InputValidator {
 
   static validateIsMenuDrink(menuName) {
     return MENU_LIST[menuName][MENU_PROPERTIES.MENU_TYPE] === MENU_TYPES.DRINK;
+  }
+  static validateTotalCounts(menus) {
+    const orderedMenuCounts = getOrderedMenusCounts(menus);
+    const totalCounts = orderedMenuCounts.reduce(
+      (acc, curCount) => acc + curCount,
+      0
+    );
+    if (totalCounts > MAX_TOTAL_COUNTS)
+      throwError(ERROR_MESSAGES.OVERORDER_MAX_TOTAL_COUNTS);
+    return;
   }
 }
 
