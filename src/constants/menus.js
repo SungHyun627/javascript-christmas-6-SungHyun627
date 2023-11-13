@@ -1,0 +1,69 @@
+export const MENU_TYPES = Object.freeze({
+  APPETIZER: 'APPETIZER',
+  MAIN_DISH: 'MAIN_DISH',
+  DESSERT: 'DESSERT',
+  DRINK: 'DRINK',
+});
+
+export const MENU_LIST = Object.freeze({
+  MUSHROOM_SOUP: {
+    MENU_TYPE: MENU_TYPES.APPETIZER,
+    MENU_NAME: '양송이스프',
+    MENU_PRICE: 6000,
+  },
+  TAPAS: {
+    MENU_TYPE: MENU_TYPES.APPETIZER,
+    MENU_NAME: '타파스',
+    MENU_PRICE: 6000,
+  },
+  CAESAR_SALAD: {
+    MENU_TYPE: MENU_TYPES.APPETIZER,
+    MENU_NAME: '시저샐러드',
+    MENU_PRICE: 8000,
+  },
+  T_BONE_STEAK: {
+    MENU_TYPE: MENU_TYPES.MAIN_DISH,
+    MENU_NAME: '티본스테이크',
+    MENU_PRICE: 55000,
+  },
+  BARBEQUED_RIBS: {
+    MENU_TYPE: MENU_TYPES.MAIN_DISH,
+    MENU_NAME: '바비큐립',
+    MENU_PRICE: 54000,
+  },
+  SEAFOOD_PASTA: {
+    MENU_TYPE: MENU_TYPES.MAIN_DISH,
+    MENU_NAME: '해산물파스타',
+    MENU_PRICE: 35000,
+  },
+  CHRISTMAS_PASTA: {
+    MENU_TYPE: MENU_TYPES.MAIN_DISH,
+    MENU_NAME: '크리스마스파스타',
+    MENU_PRICE: 25000,
+  },
+  CHOCOLATE_CAKE: {
+    MENU_TYPE: MENU_TYPES.DESSERT,
+    MENU_NAME: '초코케이크',
+    MENU_PRICE: 15000,
+  },
+  ICE_CREAM: {
+    MENU_TYPE: MENU_TYPES.DESSERT,
+    MENU_NAME: '아이스크림',
+    MENU_PRICE: 5000,
+  },
+  COKE_ZERO: {
+    MENU_TYPE: MENU_TYPES.DRINK,
+    MENU_NAME: '제로콜라',
+    MENU_PRICE: 3000,
+  },
+  RED_WINE: {
+    MENU_TYPE: MENU_TYPES.DRINK,
+    MENU_NAME: '레드와인',
+    MENU_PRICE: 60000,
+  },
+  CHAMPAGNE: {
+    MENU_TYPE: MENU_TYPES.DRINK,
+    MENU_NAME: '샴페인',
+    MENU_PRICE: 25000,
+  },
+});
