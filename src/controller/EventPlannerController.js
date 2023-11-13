@@ -7,7 +7,6 @@ import {
 } from '../utils/general.js';
 import OrderSheet from '../model/OrderSheet.js';
 import { MENU_LIST, MENU_PROPERTIES } from '../constants/menus.js';
-import { Console } from '@woowacourse/mission-utils';
 
 class EventPlannerController {
   #inputView;
@@ -21,10 +20,13 @@ class EventPlannerController {
   }
 
   async start() {
+    this.printEventPlannerStart();
     await this.getVisitDate();
     await this.getOrderedMenus();
-    const totalAmountBeforeDiscount = this.getTotalAmountBeforeDiscount();
-    Console.print(totalAmountBeforeDiscount);
+  }
+
+  printEventPlannerStart() {
+    this.#outputView.printStartMessage();
   }
 
   async getVisitDate() {
