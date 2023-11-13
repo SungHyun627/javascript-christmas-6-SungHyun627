@@ -1,6 +1,8 @@
 import InputView from '../view/InputView.js';
 import InputValidator from '../validator/InputValidator.js';
 import OutputView from '../view/OutputView.js';
+import { Console } from '@woowacourse/mission-utils';
+import { removeWhiteSpaceFromBothEndsOfString } from '../utils/general.js';
 
 class EventPlannerController {
   #inputView;
@@ -17,7 +19,9 @@ class EventPlannerController {
 
   async getVisitDate() {
     while (true) {
-      const visitDateInput = await this.#inputView.readVisitDate();
+      const visitDateInput = removeWhiteSpaceFromBothEndsOfString(
+        await this.#inputView.readVisitDate()
+      );
       try {
         InputValidator.validateVisitDate(visitDateInput);
         return Number(visitDateInput);
@@ -28,7 +32,18 @@ class EventPlannerController {
   }
 
   async getMenus() {
-    const menusInput = await this.#inputView.readMenus();
+    while (true) {
+      const menusInput = removeWhiteSpaceFromBothEndsOfString(
+        await this.#inputView.readMenus()
+      );
+      try {
+        InputValidator.validateMenus(menusInput);
+        return menusInput;
+      } catch (error) {
+        this.#outputView.printErrorMessage(error.message);
+      }
+    }
+
     return menusInput;
   }
 }
