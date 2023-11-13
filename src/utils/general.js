@@ -4,7 +4,8 @@ import {
 } from '../constants/separators.js';
 
 export const removeWhiteSpaceFromBothEndsOfString = (input) => input.trim();
-export const getOrderedMenus = (menusInput) => {
+
+export const getOrderedMenusObject = (menusInput) => {
   const orderedMenus = {};
   menusInput.split(MENU_SEPARATOR).forEach((menu) => {
     const [menuName, menuCount] = menu.split(MENU_COUNT_SEOARATOR);

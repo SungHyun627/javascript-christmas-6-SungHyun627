@@ -2,27 +2,29 @@ import InputView from '../view/InputView.js';
 import InputValidator from '../validator/InputValidator.js';
 import OutputView from '../view/OutputView.js';
 import {
-  getOrderedMenus,
   removeWhiteSpaceFromBothEndsOfString,
+  getOrderedMenusObject,
 } from '../utils/general.js';
-import PriceCalculator from '../model/priceCalculator.js';
+import OrderSheet from '../model/OrderSheet.js';
+import { MENU_LIST, MENU_PROPERTIES } from '../constants/menus.js';
 import { Console } from '@woowacourse/mission-utils';
 
 class EventPlannerController {
   #inputView;
   #outputView;
-  #priceCalculator;
+  #orderSheet;
+
   constructor() {
     this.#inputView = new InputView();
     this.#outputView = new OutputView();
-    this.#priceCalculator = new PriceCalculator();
+    this.#orderSheet = new OrderSheet();
   }
 
   async start() {
-    const visitDate = await this.getVisitDate();
-    const orderedMenus = await this.getOrderedMenus();
-    const totalAmountBeforeDiscount =
-      this.#priceCalculator.getTotalAmountBeforeDiscount(orderedMenus);
+    await this.getVisitDate();
+    await this.getOrderedMenus();
+    const totalAmountBeforeDiscount = this.getTotalAmountBeforeDiscount();
+    Console.print(totalAmountBeforeDiscount);
   }
 
   async getVisitDate() {
@@ -32,7 +34,8 @@ class EventPlannerController {
       );
       try {
         InputValidator.validateVisitDate(visitDateInput);
-        return Number(visitDateInput);
+        this.#orderSheet.setVisitDate(Number(visitDateInput));
+        break;
       } catch (error) {
         this.#outputView.printErrorMessage(error.message);
       }
@@ -46,11 +49,23 @@ class EventPlannerController {
       );
       try {
         InputValidator.validateOrderedMenus(orderedMenusInput);
-        return getOrderedMenus(orderedMenusInput);
+        this.#orderSheet.setOrderedMenus(
+          getOrderedMenusObject(orderedMenusInput)
+        );
+        break;
       } catch (error) {
         this.#outputView.printErrorMessage(error.message);
       }
     }
+  }
+
+  getTotalAmountBeforeDiscount() {
+    const menus = this.#orderSheet.getOrderedMenus();
+    const menuNames = Object.keys(menus);
+    return menuNames.reduce((acc, menuName) => {
+      const menuCount = menus[menuName];
+      return acc + MENU_LIST[menuName][MENU_PROPERTIES.MENU_PRICE] * menuCount;
+    }, 0);
   }
 }
 
