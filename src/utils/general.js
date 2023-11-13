@@ -12,3 +12,7 @@ export const convertOrderedMenusInputIntoObject = (menusInput) => {
   });
   return orderedMenus;
 };
+
+export const throwError = (message) => {
+  throw new Error(message);
+};
