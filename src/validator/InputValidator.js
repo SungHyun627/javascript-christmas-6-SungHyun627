@@ -14,22 +14,22 @@ class InputValidator {
     return true;
   }
 
-  static validateMenus(menus) {
-    this.validateMenusInputFormat(menus);
-    this.validateMenusInMenuList(menus);
+  static validateOrderedMenus(menus) {
+    this.validateOrderedMenusInputFormat(menus);
+    this.validateOrderedMenusInMenuList(menus);
     return true;
   }
 
-  static validateMenusInputFormat(menus) {
-    return menus.split(MENU_SEPARATOR).every(this.validateMenuFormat);
+  static validateOrderedMenusInputFormat(menus) {
+    return menus.split(MENU_SEPARATOR).every(this.validateOrderedMenuFormat);
   }
 
-  static validateMenuFormat(menu) {
+  static validateOrderedMenuFormat(menu) {
     if (!MENU_REGEX.test(menu)) throwError(ERROR_MESSAGES.NOT_VALID_MENUS);
     return true;
   }
 
-  static validateMenusInMenuList(menus) {
+  static validateOrderedMenusInMenuList(menus) {
     const orderedMenuNames = Object.keys(
       convertOrderedMenusInputIntoObject(menus)
     );

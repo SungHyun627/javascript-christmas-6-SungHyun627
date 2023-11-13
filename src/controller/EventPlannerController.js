@@ -35,12 +35,12 @@ class EventPlannerController {
 
   async getMenus() {
     while (true) {
-      const menusInput = removeWhiteSpaceFromBothEndsOfString(
+      const orderedMenusInput = removeWhiteSpaceFromBothEndsOfString(
         await this.#inputView.readMenus()
       );
       try {
-        InputValidator.validateMenus(menusInput);
-        return convertOrderedMenusInputIntoObject(menusInput);
+        InputValidator.validateOrderedMenus(orderedMenusInput);
+        return convertOrderedMenusInputIntoObject(orderedMenusInput);
       } catch (error) {
         this.#outputView.printErrorMessage(error.message);
       }
