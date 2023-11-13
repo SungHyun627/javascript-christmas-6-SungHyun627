@@ -1,10 +1,8 @@
-import { MENU_LIST } from '../constants/menus.js';
+import { MENU_NAMES } from '../constants/menus.js';
 import { ERROR_MESSAGES } from '../constants/messages.js';
 import { MENU_REGEX, VISIT_DATE_REGEX } from '../constants/regex.js';
-import {
-  MENU_COUNT_SEOARATOR,
-  MENU_SEPARATOR,
-} from '../constants/separators.js';
+import { MENU_SEPARATOR } from '../constants/separators.js';
+import { convertOrderedMenusInputIntoObject } from '../utils/general.js';
 
 class InputValidator {
   static validateVisitDate(visitDate) {
@@ -20,7 +18,7 @@ class InputValidator {
   }
 
   static validateMenusInputFormat(menus) {
-    return menus.split(',').every(this.validateMenuFormat);
+    return menus.split(MENU_SEPARATOR).every(this.validateMenuFormat);
   }
 
   static validateMenuFormat(menu) {
@@ -31,15 +29,12 @@ class InputValidator {
   }
 
   static validateMenusInMenuList(menus) {
-    const orderedMenuNames = menus
-      .split(MENU_SEPARATOR)
-      .map((menu) => menu.split(MENU_COUNT_SEOARATOR)[0]);
-    const menuNames = Object.keys(MENU_LIST).map(
-      (menu) => MENU_LIST[menu].MENU_NAME
+    const orderedMenuNames = Object.keys(
+      convertOrderedMenusInputIntoObject(menus)
     );
     if (
       orderedMenuNames.some(
-        (orderedMenuName) => !menuNames.includes(orderedMenuName)
+        (orderedMenuName) => !MENU_NAMES.includes(orderedMenuName)
       )
     ) {
       throw new Error(ERROR_MESSAGES.NOT_VALID_MENUS);

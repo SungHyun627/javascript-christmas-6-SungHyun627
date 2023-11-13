@@ -67,3 +67,6 @@ export const MENU_LIST = Object.freeze({
     MENU_PRICE: 25000,
   },
 });
+export const MENU_NAMES = Object.freeze(
+  Object.keys(MENU_LIST).map((menu) => MENU_LIST[menu].MENU_NAME)
+);
