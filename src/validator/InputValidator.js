@@ -3,7 +3,7 @@ import { ERROR_MESSAGES } from '../constants/messages.js';
 import { MENU_REGEX, VISIT_DATE_REGEX } from '../constants/regex.js';
 import { MENU_SEPARATOR } from '../constants/separators.js';
 import {
-  convertOrderedMenusInputIntoObject,
+  getOrderedMenus,
   getOrderedMenusNames,
   throwError,
 } from '../utils/general.js';
@@ -20,6 +20,7 @@ class InputValidator {
     this.validateEveryOrderedMenuInMenuList(menus);
     this.validateEveryOrderedMenuCountIsBiggerThanZero(menus);
     this.validateIsDuplicatedMenuName(menus);
+
     return true;
   }
 
@@ -33,9 +34,7 @@ class InputValidator {
   }
 
   static validateEveryOrderedMenuInMenuList(menus) {
-    const orderedMenuNames = Object.keys(
-      convertOrderedMenusInputIntoObject(menus)
-    );
+    const orderedMenuNames = Object.keys(getOrderedMenus(menus));
     return orderedMenuNames.every(this.validateOrderedMenuInMenuList);
   }
 
@@ -45,9 +44,7 @@ class InputValidator {
   }
 
   static validateEveryOrderedMenuCountIsBiggerThanZero(menus) {
-    const orderedMenusCounts = Object.values(
-      convertOrderedMenusInputIntoObject(menus)
-    );
+    const orderedMenusCounts = Object.values(getOrderedMenus(menus));
     return orderedMenusCounts.every(
       this.validateOrderedMenuCountIsBiggerThanZero
     );
