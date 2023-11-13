@@ -4,6 +4,7 @@ import { MENU_REGEX, VISIT_DATE_REGEX } from '../constants/regex.js';
 import { MENU_SEPARATOR } from '../constants/separators.js';
 import {
   convertOrderedMenusInputIntoObject,
+  getOrderedMenusNames,
   throwError,
 } from '../utils/general.js';
 
@@ -18,6 +19,7 @@ class InputValidator {
     this.validateOrderedMenusInputFormat(menus);
     this.validateEveryOrderedMenuInMenuList(menus);
     this.validateEveryOrderedMenuCountIsBiggerThanZero(menus);
+    this.validateIsDuplicatedMenuName(menus);
     return true;
   }
 
@@ -38,7 +40,7 @@ class InputValidator {
   }
 
   static validateOrderedMenuInMenuList(menu) {
-    if (!MENU_NAMES.includes(menu)) throwError(NOT_VALID_MENUS);
+    if (!MENU_NAMES.includes(menu)) throwError(ERROR_MESSAGES.NOT_VALID_MENUS);
     return true;
   }
 
@@ -53,6 +55,13 @@ class InputValidator {
 
   static validateOrderedMenuCountIsBiggerThanZero(menuCount) {
     if (menuCount < MIN_ORDERED_MENU_COUNT)
+      throwError(ERROR_MESSAGES.NOT_VALID_MENUS);
+    return true;
+  }
+
+  static validateIsDuplicatedMenuName(menus) {
+    const orderedMenuNames = getOrderedMenusNames(menus);
+    if (orderedMenuNames.length !== new Set(orderedMenuNames).size)
       throwError(ERROR_MESSAGES.NOT_VALID_MENUS);
     return true;
   }

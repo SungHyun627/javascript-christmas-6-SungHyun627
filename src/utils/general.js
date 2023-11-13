@@ -12,6 +12,12 @@ export const convertOrderedMenusInputIntoObject = (menusInput) => {
   });
   return orderedMenus;
 };
+export const getOrderedMenusNames = (menusInput) => {
+  return menusInput.split(MENU_SEPARATOR).map((menu) => {
+    const [menuName, menuCount] = menu.split(MENU_COUNT_SEOARATOR);
+    return menuName;
+  });
+};
 
 export const throwError = (message) => {
   throw new Error(message);
