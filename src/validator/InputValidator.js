@@ -16,7 +16,7 @@ class InputValidator {
 
   static validateOrderedMenus(menus) {
     this.validateOrderedMenusInputFormat(menus);
-    this.validateOrderedMenusInMenuList(menus);
+    this.validateEveryOrderedMenuInMenuList(menus);
     this.validateEveryOrderedMenuCountIsBiggerThanZero(menus);
     return true;
   }
@@ -30,17 +30,15 @@ class InputValidator {
     return true;
   }
 
-  static validateOrderedMenusInMenuList(menus) {
+  static validateEveryOrderedMenuInMenuList(menus) {
     const orderedMenuNames = Object.keys(
       convertOrderedMenusInputIntoObject(menus)
     );
-    if (
-      orderedMenuNames.some(
-        (orderedMenuName) => !MENU_NAMES.includes(orderedMenuName)
-      )
-    ) {
-      throwError(ERROR_MESSAGES.NOT_VALID_MENUS);
-    }
+    return orderedMenuNames.every(this.validateOrderedMenuInMenuList);
+  }
+
+  static validateOrderedMenuInMenuList(menu) {
+    if (!MENU_NAMES.includes(menu)) throwError(NOT_VALID_MENUS);
     return true;
   }
 
