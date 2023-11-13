@@ -70,3 +70,5 @@ export const MENU_LIST = Object.freeze({
 export const MENU_NAMES = Object.freeze(
   Object.keys(MENU_LIST).map((menu) => MENU_LIST[menu].MENU_NAME)
 );
+
+export const MIN_ORDERED_MENU_COUNT = 1;
