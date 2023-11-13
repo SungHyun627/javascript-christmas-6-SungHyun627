@@ -2,7 +2,7 @@ import InputView from '../view/InputView.js';
 import InputValidator from '../validator/InputValidator.js';
 import OutputView from '../view/OutputView.js';
 import {
-  convertOrderedMenusInputIntoObject,
+  getOrderedMenus,
   removeWhiteSpaceFromBothEndsOfString,
 } from '../utils/general.js';
 
@@ -40,7 +40,7 @@ class EventPlannerController {
       );
       try {
         InputValidator.validateOrderedMenus(orderedMenusInput);
-        return convertOrderedMenusInputIntoObject(orderedMenusInput);
+        return getOrderedMenus(orderedMenusInput);
       } catch (error) {
         this.#outputView.printErrorMessage(error.message);
       }

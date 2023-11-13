@@ -1,4 +1,9 @@
-import { MENU_NAMES, MIN_ORDERED_MENU_COUNT } from '../constants/menus.js';
+import {
+  MENU_LIST,
+  MENU_PROPERTIES,
+  MENU_TYPES,
+  MIN_ORDERED_MENU_COUNT,
+} from '../constants/menus.js';
 import { ERROR_MESSAGES } from '../constants/messages.js';
 import { MENU_REGEX, VISIT_DATE_REGEX } from '../constants/regex.js';
 import { MENU_SEPARATOR } from '../constants/separators.js';
@@ -20,7 +25,7 @@ class InputValidator {
     this.validateEveryOrderedMenuInMenuList(menus);
     this.validateEveryOrderedMenuCountIsBiggerThanZero(menus);
     this.validateIsDuplicatedMenuName(menus);
-    this.validateIsOnlyDrinkInOrderedMenus(menus);
+    this.validateOnlyDrinkInOrderedMenus(menus);
 
     return true;
   }
@@ -40,7 +45,8 @@ class InputValidator {
   }
 
   static validateOrderedMenuInMenuList(menu) {
-    if (!MENU_NAMES.includes(menu)) throwError(ERROR_MESSAGES.NOT_VALID_MENUS);
+    const menuNames = Object.keys(MENU_LIST);
+    if (!menuNames.includes(menu)) throwError(ERROR_MESSAGES.NOT_VALID_MENUS);
     return true;
   }
 
@@ -64,8 +70,15 @@ class InputValidator {
     return true;
   }
 
-  static validateIsOnlyDrinkInOrderedMenus(menus) {
+  static validateOnlyDrinkInOrderedMenus(menus) {
     const orderedMenuNames = getOrderedMenusNames(menus);
+    if (orderedMenuNames.every(this.validateIsMenuDrink))
+      throwError(ERROR_MESSAGES.ONLY_DRINK);
+    return true;
+  }
+
+  static validateIsMenuDrink(menuName) {
+    return MENU_LIST[menuName][MENU_PROPERTIES.MENU_TYPE] === MENU_TYPES.DRINK;
   }
 }
 

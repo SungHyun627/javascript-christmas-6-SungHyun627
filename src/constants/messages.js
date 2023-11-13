@@ -9,4 +9,5 @@ export const GUIDE_MESSAGES = Object.freeze({
 export const ERROR_MESSAGES = Object.freeze({
   NOT_VALID_VISIT_DATE: `[ERROR] 유효하지 않은 날짜입니다. ${GUIDE_MESSAGES.RETYPE}`,
   NOT_VALID_MENUS: `[ERROR] 유효하지 않은 주문입니다. ${GUIDE_MESSAGES.RETYPE}`,
+  ONLY_DRINK: `[ERROR] 음료만 주문할 수 없습니다. ${GUIDE_MESSAGES.RETYPE}`,
 });
