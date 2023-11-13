@@ -3,7 +3,7 @@ import { ERROR_MESSAGES } from '../constants/messages.js';
 import { MENU_REGEX, VISIT_DATE_REGEX } from '../constants/regex.js';
 import { MENU_SEPARATOR } from '../constants/separators.js';
 import {
-  getOrderedMenus,
+  getOrderedMenusCounts,
   getOrderedMenusNames,
   throwError,
 } from '../utils/general.js';
@@ -20,6 +20,7 @@ class InputValidator {
     this.validateEveryOrderedMenuInMenuList(menus);
     this.validateEveryOrderedMenuCountIsBiggerThanZero(menus);
     this.validateIsDuplicatedMenuName(menus);
+    this.validateIsOnlyDrinkInOrderedMenus(menus);
 
     return true;
   }
@@ -34,7 +35,7 @@ class InputValidator {
   }
 
   static validateEveryOrderedMenuInMenuList(menus) {
-    const orderedMenuNames = Object.keys(getOrderedMenus(menus));
+    const orderedMenuNames = getOrderedMenusNames(menus);
     return orderedMenuNames.every(this.validateOrderedMenuInMenuList);
   }
 
@@ -44,7 +45,7 @@ class InputValidator {
   }
 
   static validateEveryOrderedMenuCountIsBiggerThanZero(menus) {
-    const orderedMenusCounts = Object.values(getOrderedMenus(menus));
+    const orderedMenusCounts = getOrderedMenusCounts(menus);
     return orderedMenusCounts.every(
       this.validateOrderedMenuCountIsBiggerThanZero
     );
@@ -61,6 +62,10 @@ class InputValidator {
     if (orderedMenuNames.length !== new Set(orderedMenuNames).size)
       throwError(ERROR_MESSAGES.NOT_VALID_MENUS);
     return true;
+  }
+
+  static validateIsOnlyDrinkInOrderedMenus(menus) {
+    const orderedMenuNames = getOrderedMenusNames(menus);
   }
 }
 
