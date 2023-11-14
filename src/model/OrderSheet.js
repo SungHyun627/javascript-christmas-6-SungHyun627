@@ -1,3 +1,4 @@
+import { BADGES, NOT_MATCHED_BADGE } from '../constants/badges.js';
 import { DISCOUNT_EVENTS_DATES } from '../constants/dates.js';
 import {
   DISCOUNT_UNITS,
@@ -8,6 +9,7 @@ import {
 import { GIFT_MENU, ZERO_GIFT_AMOUNT } from '../constants/gifts.js';
 import { MENU_PROPERTIES, MENU_LIST, MENU_TYPES } from '../constants/menus.js';
 import DiscountEventValidator from '../validator/DiscountEventValidator.js';
+import EventBadgeValidator from '../validator/EventBadgeValidator.js';
 import GiftEventValidator from '../validator/GiftEventValidator.js';
 class OrderSheet {
   #visitDate;
@@ -62,6 +64,17 @@ class OrderSheet {
 
   getPaymentAmount() {
     return this.getTotalOrderAmount() - this.getTotalDiscountAmount();
+  }
+
+  getEventBadge() {
+    const totalBenefitAmount = this.getTotalBenefitAmount();
+    if (EventBadgeValidator.isStarBadgeGettable(totalBenefitAmount))
+      return BADGES.STAR;
+    if (EventBadgeValidator.isTreeBadgeGettable(totalBenefitAmount))
+      return BADGES.TREE;
+    if (EventBadgeValidator.isTreeBadgeGettable(totalBenefitAmount))
+      return BADGES.SANTA;
+    return NOT_MATCHED_BADGE;
   }
 
   getChristmasDdayDiscountAmount() {
