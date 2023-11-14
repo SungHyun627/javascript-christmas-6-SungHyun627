@@ -13,12 +13,16 @@ class DisCountEventValidator {
     );
   }
 
+  static isWeekDayDiscountApplicable(visitDate) {
+    return !DISCOUNT_EVENTS_DATES.WEEKEND_DISCOUNT_DATES.includes(visitDate);
+  }
+
   static isWeekendDiscountApplicable(visitDate) {
     return DISCOUNT_EVENTS_DATES.WEEKEND_DISCOUNT_DATES.includes(visitDate);
   }
 
-  static isWeekDayDiscountApplicable(visitDate) {
-    return !DISCOUNT_EVENTS_DATES.WEEKEND_DISCOUNT_DATES.includes(visitDate);
+  static isSpecialDiscountApplicable(visitDate) {
+    return DISCOUNT_EVENTS_DATES.SPECIAL_DISCOUNT_DATES.includes(visitDate);
   }
 }
 

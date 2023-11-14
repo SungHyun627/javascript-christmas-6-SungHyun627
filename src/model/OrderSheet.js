@@ -48,6 +48,12 @@ class OrderSheet {
     if (!DisCountEventValidator.isWeekendDiscountApplicalbe(visitDate))
       return 0;
   }
+
+  getSpecialDiscountAmount() {
+    const visitDate = this.getVisitDate();
+    if (!DisCountEventValidator.isSpecialDiscountApplicable(visitDate))
+      return 0;
+  }
 }
 
 export default OrderSheet;
