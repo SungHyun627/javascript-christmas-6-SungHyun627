@@ -1,5 +1,6 @@
 import { MENU_PROPERTIES, MENU_LIST } from '../constants/menus.js';
 import DisCountEventValidator from '../validator/DiscountEventValidator.js';
+import GiftEventValidator from '../validator/GiftEventValidator.js';
 class OrderSheet {
   #visitDate;
   #orderedMenus;
@@ -30,6 +31,11 @@ class OrderSheet {
   }
 
   getTotalDiscountAmount() {}
+
+  getGiftAmount() {
+    const totalOrderAmount = this.getTotalDiscountAmount();
+    if (!GiftEventValidator.isGiftEventApplicable(totalOrderAmount)) return 0;
+  }
 
   getChristmasDdayDiscountAmount() {
     const visitDate = this.getVisitDate();
