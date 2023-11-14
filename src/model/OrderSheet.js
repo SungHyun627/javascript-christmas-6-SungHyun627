@@ -56,6 +56,10 @@ class OrderSheet {
       : ZERO_GIFT_AMOUNT;
   }
 
+  getTotalBenefitAmount() {
+    return this.getTotalDiscountAmount() + this.getGiftAmount();
+  }
+
   getChristmasDdayDiscountAmount() {
     const visitDate = this.getVisitDate();
     return DiscountEventValidator.isChristmasDdayDiscountApplicable(visitDate)
