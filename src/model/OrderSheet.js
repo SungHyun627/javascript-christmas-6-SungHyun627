@@ -34,13 +34,19 @@ class OrderSheet {
     const totalDiscountAmount = 0;
     if (!DisCountEventValidator.isDiscountEventApplicable(totalOrderAmount))
       return 0;
-
     totalDiscountAmount += this.getChristmasDdayDiscountAmount();
+    totalDiscountAmount += this.getWeekendDiscountAmount();
   }
 
   getChristmasDdayDiscountAmount() {
     const visitDate = this.getVisitDate();
     if (!DisCountEventValidator.isChristmasDdayDiscontApplicable(visitDate))
+      return 0;
+  }
+
+  getWeekendDiscountAmount() {
+    const visitDate = this.getVisitDate();
+    if (!DisCountEventValidator.isWeekendDiscountApplicalbe(visitDate))
       return 0;
   }
 }

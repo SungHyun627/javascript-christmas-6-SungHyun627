@@ -12,6 +12,10 @@ class DisCountEventValidator {
       visitDate <= DISCOUNT_EVENTS_DATES.CHRISTMAS_DDAY_DISCOUNT_END_DATE
     );
   }
+
+  static isWeekendDiscountApplicalbe(visitDate) {
+    return DISCOUNT_EVENTS_DATES.WEEKEND_DISCOUNT_DATES.includes(visitDate);
+  }
 }
 
 export default DisCountEventValidator;
