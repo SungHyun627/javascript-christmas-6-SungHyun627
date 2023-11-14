@@ -1,3 +1,9 @@
+import { DISCOUNT_EVENTS_DATES } from '../constants/dates.js';
+import {
+  DISCOUNT_UNITS,
+  INITIAL_CHRISTMAS_DDAY_DISCOUNT_AMOUNT,
+  ZERO_DISCOUNT_AMOUNT,
+} from '../constants/discounts.js';
 import { MENU_PROPERTIES, MENU_LIST } from '../constants/menus.js';
 import DisCountEventValidator from '../validator/DiscountEventValidator.js';
 import GiftEventValidator from '../validator/GiftEventValidator.js';
@@ -39,8 +45,12 @@ class OrderSheet {
 
   getChristmasDdayDiscountAmount() {
     const visitDate = this.getVisitDate();
-    if (!DisCountEventValidator.isChristmasDdayDiscountApplicable(visitDate))
-      return 0;
+    return DisCountEventValidator.isChristmasDdayDiscountApplicable(visitDate)
+      ? INITIAL_CHRISTMAS_DDAY_DISCOUNT_AMOUNT +
+          (visitDate -
+            DISCOUNT_EVENTS_DATES.CHRISTMAS_DDAY_DISCOUNT_START_DATE) *
+            DISCOUNT_UNITS.CHRISTMAS_DDAY_DISCOUNT_UNIT
+      : ZERO_DISCOUNT_AMOUNT;
   }
 
   getWeekDayDiscountAmount() {

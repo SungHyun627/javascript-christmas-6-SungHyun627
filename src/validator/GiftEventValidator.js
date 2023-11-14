@@ -1,4 +1,4 @@
-import { MIN_TOTAL_ORDER_AMOUNT_FOR_GIFT_EVENT } from '../constants/gifts';
+import { MIN_TOTAL_ORDER_AMOUNT_FOR_GIFT_EVENT } from '../constants/gifts.js';
 
 class GiftEventValidator {
   static isGiftEventApplicable(totalOrderAmount) {
