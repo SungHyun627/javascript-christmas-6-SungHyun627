@@ -6,6 +6,7 @@ import {
   getOrderedMenusObject,
 } from '../utils/general.js';
 import OrderSheet from '../model/OrderSheet.js';
+import { Console } from '@woowacourse/mission-utils';
 
 class EventPlannerController {
   #inputView;
@@ -22,6 +23,7 @@ class EventPlannerController {
     this.printEventPlannerStart();
     await this.getVisitDate();
     await this.getOrderedMenus();
+    Console.print(this.#orderSheet.getWeekendDiscountAmount());
   }
 
   async getVisitDate() {

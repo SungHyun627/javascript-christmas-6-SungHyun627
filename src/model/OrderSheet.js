@@ -63,8 +63,10 @@ class OrderSheet {
 
   getWeekendDiscountAmount() {
     const visitDate = this.getVisitDate();
-    if (!DisCountEventValidator.isWeekendDiscountApplicable(visitDate))
-      return 0;
+    const countOfMainDishMenus = this.getCountOfMenuType(MENU_TYPES.MAIN_DISH);
+    return DisCountEventValidator.isWeekendDiscountApplicable(visitDate)
+      ? countOfMainDishMenus * DISCOUNT_UNITS.WEEKEND_DISCOUNT_UNIT
+      : 0;
   }
 
   getSpecialDiscountAmount() {
