@@ -60,6 +60,10 @@ class OrderSheet {
     return this.getTotalDiscountAmount() + this.getGiftAmount();
   }
 
+  getPaymentAmount() {
+    return this.getTotalOrderAmount() - this.getTotalDiscountAmount();
+  }
+
   getChristmasDdayDiscountAmount() {
     const visitDate = this.getVisitDate();
     return DiscountEventValidator.isChristmasDdayDiscountApplicable(visitDate)
