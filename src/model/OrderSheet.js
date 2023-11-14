@@ -19,6 +19,7 @@ class OrderSheet {
   getOrderedMenus() {
     return { ...this.#orderedMenus };
   }
+
   getTotalOrderAmountBeforeDiscount() {
     const menus = this.getOrderedMenus();
     const menuNames = Object.keys(menus);
@@ -28,11 +29,19 @@ class OrderSheet {
     }, 0);
   }
 
-  getDiscountEventsApplicable() {
+  getTotalDiscountAmount() {
     const totalOrderAmount = this.getTotalOrderAmountBeforeDiscount();
-
+    const totalDiscountAmount = 0;
     if (!DisCountEventValidator.isDiscountEventApplicable(totalOrderAmount))
-      return [];
+      return 0;
+
+    totalDiscountAmount += this.getChristmasDdayDiscountAmount();
+  }
+
+  getChristmasDdayDiscountAmount() {
+    const visitDate = this.getVisitDate();
+    if (!DisCountEventValidator.isChristmasDdayDiscontApplicable(visitDate))
+      return 0;
   }
 }
 
