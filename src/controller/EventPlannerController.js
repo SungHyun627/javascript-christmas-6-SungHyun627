@@ -6,7 +6,7 @@ import {
   getOrderedMenusObject,
 } from '../utils/general.js';
 import OrderSheet from '../model/OrderSheet.js';
-import { MENU_LIST, MENU_PROPERTIES } from '../constants/menus.js';
+import { Console } from '@woowacourse/mission-utils';
 
 class EventPlannerController {
   #inputView;
@@ -23,6 +23,7 @@ class EventPlannerController {
     this.printEventPlannerStart();
     await this.getVisitDate();
     await this.getOrderedMenus();
+    Console.print(this.#orderSheet.getDiscountEventsApplicable());
   }
 
   printEventPlannerStart() {
@@ -59,15 +60,6 @@ class EventPlannerController {
         this.#outputView.printErrorMessage(error.message);
       }
     }
-  }
-
-  getTotalAmountBeforeDiscount() {
-    const menus = this.#orderSheet.getOrderedMenus();
-    const menuNames = Object.keys(menus);
-    return menuNames.reduce((acc, menuName) => {
-      const menuCount = menus[menuName];
-      return acc + MENU_LIST[menuName][MENU_PROPERTIES.MENU_PRICE] * menuCount;
-    }, 0);
   }
 }
 
