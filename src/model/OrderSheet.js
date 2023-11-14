@@ -5,7 +5,7 @@ import {
   ZERO_DISCOUNT_AMOUNT,
 } from '../constants/discounts.js';
 import { MENU_PROPERTIES, MENU_LIST, MENU_TYPES } from '../constants/menus.js';
-import DisCountEventValidator from '../validator/DiscountEventValidator.js';
+import DiscountEventValidator from '../validator/DiscountEventValidator.js';
 import GiftEventValidator from '../validator/GiftEventValidator.js';
 class OrderSheet {
   #visitDate;
@@ -45,7 +45,7 @@ class OrderSheet {
 
   getChristmasDdayDiscountAmount() {
     const visitDate = this.getVisitDate();
-    return DisCountEventValidator.isChristmasDdayDiscountApplicable(visitDate)
+    return DiscountEventValidator.isChristmasDdayDiscountApplicable(visitDate)
       ? INITIAL_CHRISTMAS_DDAY_DISCOUNT_AMOUNT +
           (visitDate -
             DISCOUNT_EVENTS_DATES.CHRISTMAS_DDAY_DISCOUNT_START_DATE) *
@@ -56,7 +56,7 @@ class OrderSheet {
   getWeekDayDiscountAmount() {
     const visitDate = this.getVisitDate();
     const countOfDessertMenus = this.getCountOfMenuType(MENU_TYPES.DESSERT);
-    return DisCountEventValidator.isWeekDayDiscountApplicable(visitDate)
+    return DiscountEventValidator.isWeekDayDiscountApplicable(visitDate)
       ? countOfDessertMenus * DISCOUNT_UNITS.WEEKDAY_DISCOUNT_UNIT
       : 0;
   }
@@ -64,14 +64,14 @@ class OrderSheet {
   getWeekendDiscountAmount() {
     const visitDate = this.getVisitDate();
     const countOfMainDishMenus = this.getCountOfMenuType(MENU_TYPES.MAIN_DISH);
-    return DisCountEventValidator.isWeekendDiscountApplicable(visitDate)
+    return DiscountEventValidator.isWeekendDiscountApplicable(visitDate)
       ? countOfMainDishMenus * DISCOUNT_UNITS.WEEKEND_DISCOUNT_UNIT
       : 0;
   }
 
   getSpecialDiscountAmount() {
     const visitDate = this.getVisitDate();
-    if (!DisCountEventValidator.isSpecialDiscountApplicable(visitDate))
+    if (!DiscountEventValidator.isSpecialDiscountApplicable(visitDate))
       return 0;
   }
 

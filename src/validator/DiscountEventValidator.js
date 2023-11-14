@@ -1,7 +1,7 @@
 import { DISCOUNT_EVENTS_DATES } from '../constants/dates.js';
 import { MIN_TOTAL_ORDER_AMOUNT_FOR_DISCOUNT_EVENT } from '../constants/discounts.js';
 
-class DisCountEventValidator {
+class DiscountEventValidator {
   static isDiscountEventApplicable(totalOrderAmount) {
     return totalOrderAmount >= MIN_TOTAL_ORDER_AMOUNT_FOR_DISCOUNT_EVENT;
   }
@@ -26,4 +26,4 @@ class DisCountEventValidator {
   }
 }
 
-export default DisCountEventValidator;
+export default DiscountEventValidator;
