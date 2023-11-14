@@ -5,6 +5,7 @@ import {
   SPECIAL_DISCOUNT_AMOUNT,
   ZERO_DISCOUNT_AMOUNT,
 } from '../constants/discounts.js';
+import { GIFT_MENU, ZERO_GIFT_AMOUNT } from '../constants/gifts.js';
 import { MENU_PROPERTIES, MENU_LIST, MENU_TYPES } from '../constants/menus.js';
 import DiscountEventValidator from '../validator/DiscountEventValidator.js';
 import GiftEventValidator from '../validator/GiftEventValidator.js';
@@ -50,7 +51,9 @@ class OrderSheet {
 
   getGiftAmount() {
     const totalOrderAmount = this.getTotalOrderAmount();
-    if (!GiftEventValidator.isGiftEventApplicable(totalOrderAmount)) return 0;
+    return GiftEventValidator.isGiftEventApplicable(totalOrderAmount)
+      ? MENU_LIST[GIFT_MENU][MENU_PROPERTIES.MENU_PRICE]
+      : ZERO_GIFT_AMOUNT;
   }
 
   getChristmasDdayDiscountAmount() {
