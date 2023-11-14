@@ -1,8 +1,12 @@
 import { GUIDE_MESSAGES } from '../constants/messages.js';
-import { RESULT_ITEM_TITLES } from '../constants/resultItemTItles.js';
+import {
+  RESULT_BENEFIT_TITLES,
+  RESULT_ITEM_TITLES,
+} from '../constants/resultTitles.js';
 import { SEPARATORS } from '../constants/separators.js';
 import { UNITS } from '../constants/units.js';
 import { GIFT_MENU } from '../constants/gifts.js';
+import { MINUS } from '../constants/signs.js';
 
 export const formatResultStartMessage = (visitDate) =>
   `12${UNITS.MONTH} ${visitDate}${UNITS.DATE}에 ${GUIDE_MESSAGES.SHOW_RESULT}`;
@@ -32,4 +36,14 @@ export const formatGiftMenu = (giftAmount) => {
       ? `${GIFT_MENU} 1${UNITS.COUNT}`
       : GUIDE_MESSAGES.NOT_EXSIT_MATCHED_RESULT
   }`;
+};
+
+export const formatTotalBenefitAmount = (totalBenefitAmount) => {
+  return `${RESULT_ITEM_TITLES.TOTAL_BENEFIT_AMOUNT}${
+    SEPARATORS.LINE_BREAK_SEPARATOR
+  }${
+    totalBenefitAmount
+      ? `${MINUS}${formatNumberWithCommas(totalBenefitAmount)}`
+      : 0
+  }${UNITS.WON}`;
 };
