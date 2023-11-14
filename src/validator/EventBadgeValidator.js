@@ -1,4 +1,4 @@
-import { MIN_TOTAL_BENEFIT_AMOUNT } from '../constants/badges';
+import { MIN_TOTAL_BENEFIT_AMOUNT } from '../constants/badges.js';
 
 class EventBadgeValidator {
   static isStarBadgeGettable(totalBenefitAmount) {

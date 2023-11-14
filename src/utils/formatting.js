@@ -7,6 +7,7 @@ import { SEPARATORS } from '../constants/separators.js';
 import { UNITS } from '../constants/units.js';
 import { GIFT_MENU } from '../constants/gifts.js';
 import { MINUS } from '../constants/signs.js';
+import { BADGES } from '../constants/badges.js';
 
 export const formatResultStartMessage = (visitDate) =>
   `12${UNITS.MONTH} ${visitDate}${UNITS.DATE}에 ${GUIDE_MESSAGES.SHOW_RESULT}`;
@@ -52,4 +53,12 @@ export const formatPaymentAmount = (paymentAmount) => {
   return `${RESULT_ITEM_TITLES.PAYMENT_AMOUNT}${
     SEPARATORS.LINE_BREAK_SEPARATOR
   }${formatNumberWithCommas(paymentAmount)}${UNITS.WON}`;
+};
+
+export const formatEventBadge = (eventBadge) => {
+  return `${RESULT_ITEM_TITLES.EVENT_BADGE}${SEPARATORS.LINE_BREAK_SEPARATOR}${
+    eventBadge === BADGES.NOT_MATCHED_BADGE
+      ? GUIDE_MESSAGES.NOT_EXSIT_MATCHED_RESULT
+      : eventBadge
+  }`;
 };

@@ -1,4 +1,4 @@
-import { BADGES, NOT_MATCHED_BADGE } from '../constants/badges.js';
+import { BADGES } from '../constants/badges.js';
 import { DISCOUNT_EVENTS_DATES } from '../constants/dates.js';
 import {
   DISCOUNT_UNITS,
@@ -29,6 +29,25 @@ class OrderSheet {
 
   getOrderedMenus() {
     return { ...this.#orderedMenus };
+  }
+
+  getResult() {
+    return {
+      visitDate: this.getVisitDate(),
+      orderedMenus: this.getOrderedMenus(),
+      totalOrderAmount: this.getTotalOrderAmount(),
+      totalBenefitAmount: this.getTotalBenefitAmount(),
+      giftAmount: this.getGiftAmount(),
+      paymentAmount: this.getPaymentAmount(),
+      eventBadge: this.getEventBadge(),
+      benefitAmounts: {
+        christmasDdayDiscountAmount: this.getChristmasDdayDiscountAmount(),
+        weekDayDiscountAmount: this.getWeekDayDiscountAmount(),
+        weekendDiscountAmount: this.getWeekendDiscountAmount(),
+        specialDiscountAmount: this.getSpecialDiscountAmount(),
+        giftAmount: this.getGiftAmount(),
+      },
+    };
   }
 
   getTotalOrderAmount() {
@@ -72,9 +91,9 @@ class OrderSheet {
       return BADGES.STAR;
     if (EventBadgeValidator.isTreeBadgeGettable(totalBenefitAmount))
       return BADGES.TREE;
-    if (EventBadgeValidator.isTreeBadgeGettable(totalBenefitAmount))
+    if (EventBadgeValidator.isSantaBadgeGettable(totalBenefitAmount))
       return BADGES.SANTA;
-    return NOT_MATCHED_BADGE;
+    return BADGES.NOT_MATCHED_BADGE;
   }
 
   getChristmasDdayDiscountAmount() {
