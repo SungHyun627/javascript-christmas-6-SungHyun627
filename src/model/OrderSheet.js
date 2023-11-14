@@ -40,7 +40,7 @@ class OrderSheet {
 
   getChristmasDdayDiscountAmount() {
     const visitDate = this.getVisitDate();
-    if (!DisCountEventValidator.isChristmasDdayDiscontApplicable(visitDate))
+    if (!DisCountEventValidator.isChristmasDdayDiscountApplicable(visitDate))
       return 0;
   }
 
