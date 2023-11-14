@@ -6,13 +6,13 @@ export const MENU_TYPES = Object.freeze({
 });
 
 export const MENU_LIST = Object.freeze({
-  양송이스프: {
+  양송이수프: {
     MENU_TYPE: MENU_TYPES.APPETIZER,
     MENU_PRICE: 6000,
   },
   타파스: {
     MENU_TYPE: MENU_TYPES.APPETIZER,
-    MENU_PRICE: 6000,
+    MENU_PRICE: 5500,
   },
   시저샐러드: {
     MENU_TYPE: MENU_TYPES.APPETIZER,
