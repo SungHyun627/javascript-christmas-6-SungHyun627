@@ -28,7 +28,7 @@ class OrderSheet {
     return { ...this.#orderedMenus };
   }
 
-  getTotalOrderAmountBeforeDiscount() {
+  getTotalOrderAmount() {
     const menus = this.getOrderedMenus();
     const menuNames = Object.keys(menus);
     return menuNames.reduce((acc, menuName) => {
@@ -37,10 +37,19 @@ class OrderSheet {
     }, 0);
   }
 
-  getTotalDiscountAmount() {}
+  getTotalDiscountAmount() {
+    const totalOrderAmount = this.getTotalOrderAmount();
+
+    return DiscountEventValidator.isDiscountEventApplicable(totalOrderAmount)
+      ? this.getChristmasDdayDiscountAmount() +
+          this.getWeekDayDiscountAmount() +
+          this.getWeekendDiscountAmount() +
+          this.getSpecialDiscountAmount()
+      : ZERO_DISCOUNT_AMOUNT;
+  }
 
   getGiftAmount() {
-    const totalOrderAmount = this.getTotalDiscountAmount();
+    const totalOrderAmount = this.getTotalOrderAmount();
     if (!GiftEventValidator.isGiftEventApplicable(totalOrderAmount)) return 0;
   }
 
