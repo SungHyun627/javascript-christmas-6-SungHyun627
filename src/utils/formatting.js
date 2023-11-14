@@ -2,6 +2,7 @@ import { GUIDE_MESSAGES } from '../constants/messages.js';
 import { RESULT_ITEM_TITLES } from '../constants/resultItemTItles.js';
 import { SEPARATORS } from '../constants/separators.js';
 import { UNITS } from '../constants/units.js';
+import { GIFT_MENU } from '../constants/gifts.js';
 
 export const formatResultStartMessage = (visitDate) =>
   `12${UNITS.MONTH} ${visitDate}${UNITS.DATE}에 ${GUIDE_MESSAGES.SHOW_RESULT}`;
@@ -20,5 +21,15 @@ export const formatOrderedMenus = (orderedMenus) => {
 const formatNumberWithCommas = (number) => number.toLocaleString();
 
 export const formatTotalOrderAmount = (totalOrderAmount) => {
-  return `${formatNumberWithCommas(totalOrderAmount)}${UNITS.WON}`;
+  return `${RESULT_ITEM_TITLES.TOTAL_ORDER_AMOUNT}${
+    SEPARATORS.LINE_BREAK_SEPARATOR
+  }${formatNumberWithCommas(totalOrderAmount)}${UNITS.WON}`;
+};
+
+export const formatGiftMenu = (giftAmount) => {
+  return `${RESULT_ITEM_TITLES.GIFT_MENU}${SEPARATORS.LINE_BREAK_SEPARATOR}${
+    giftAmount
+      ? `${GIFT_MENU} 1${UNITS.COUNT}`
+      : GUIDE_MESSAGES.NOT_EXSIT_MATCHED_RESULT
+  }`;
 };
