@@ -9,10 +9,10 @@ import { GIFT_MENU } from '../constants/gifts.js';
 import { MINUS } from '../constants/signs.js';
 import { BADGES } from '../constants/badges.js';
 
-export const formatResultStartMessage = (visitDate) =>
+const formatResultStartMessage = (visitDate) =>
   `12${UNITS.MONTH} ${visitDate}${UNITS.DATE}에 ${GUIDE_MESSAGES.SHOW_RESULT}`;
 
-export const formatOrderedMenus = (orderedMenus) => {
+const formatOrderedMenus = (orderedMenus) => {
   return `${RESULT_ITEM_TITLES.ORDERED_MENUS}${
     SEPARATORS.LINE_BREAK_SEPARATOR
   }${Object.entries(orderedMenus)
@@ -25,41 +25,17 @@ export const formatOrderedMenus = (orderedMenus) => {
 
 const formatNumberWithCommas = (number) => number.toLocaleString();
 
-export const formatTotalOrderAmount = (totalOrderAmount) => {
+const formatTotalOrderAmount = (totalOrderAmount) => {
   return `${RESULT_ITEM_TITLES.TOTAL_ORDER_AMOUNT}${
     SEPARATORS.LINE_BREAK_SEPARATOR
   }${formatNumberWithCommas(totalOrderAmount)}${UNITS.WON}`;
 };
 
-export const formatGiftMenu = (giftAmount) => {
+const formatGiftMenu = (giftAmount) => {
   return `${RESULT_ITEM_TITLES.GIFT_MENU}${SEPARATORS.LINE_BREAK_SEPARATOR}${
     giftAmount
       ? `${GIFT_MENU} 1${UNITS.COUNT}`
       : GUIDE_MESSAGES.NOT_EXSIT_MATCHED_RESULT
-  }`;
-};
-
-export const formatTotalBenefitAmount = (totalBenefitAmount) => {
-  return `${RESULT_ITEM_TITLES.TOTAL_BENEFIT_AMOUNT}${
-    SEPARATORS.LINE_BREAK_SEPARATOR
-  }${
-    totalBenefitAmount
-      ? `${MINUS}${formatNumberWithCommas(totalBenefitAmount)}`
-      : 0
-  }${UNITS.WON}`;
-};
-
-export const formatPaymentAmount = (paymentAmount) => {
-  return `${RESULT_ITEM_TITLES.PAYMENT_AMOUNT}${
-    SEPARATORS.LINE_BREAK_SEPARATOR
-  }${formatNumberWithCommas(paymentAmount)}${UNITS.WON}`;
-};
-
-export const formatEventBadge = (eventBadge) => {
-  return `${RESULT_ITEM_TITLES.EVENT_BADGE}${SEPARATORS.LINE_BREAK_SEPARATOR}${
-    eventBadge === BADGES.NOT_MATCHED_BADGE
-      ? GUIDE_MESSAGES.NOT_EXSIT_MATCHED_RESULT
-      : eventBadge
   }`;
 };
 
@@ -71,7 +47,7 @@ const formatBenefitDetail = (benefitTitle, benefitAmount) => {
     : '';
 };
 
-export const formatBenefitDetails = ({ tbA, cddA, wddA, wedA, sdA, gA }) => {
+const formatBenefitDetails = ({ tbA, cddA, wddA, wedA, sdA, gA }) => {
   const benefitDetailsTitle = `${RESULT_ITEM_TITLES.BENEFIT_DETAILS}${SEPARATORS.LINE_BREAK_SEPARATOR}`;
   if (tbA === 0)
     return `${benefitDetailsTitle}${GUIDE_MESSAGES.NOT_EXSIT_MATCHED_RESULT}`;
@@ -84,4 +60,44 @@ export const formatBenefitDetails = ({ tbA, cddA, wddA, wedA, sdA, gA }) => {
   return `${benefitDetailsTitle}${benefitDetails
     .filter((benefitDetail) => benefitDetail.length)
     .join(SEPARATORS.LINE_BREAK_SEPARATOR)}`;
+};
+
+const formatTotalBenefitAmount = (totalBenefitAmount) => {
+  return `${RESULT_ITEM_TITLES.TOTAL_BENEFIT_AMOUNT}${
+    SEPARATORS.LINE_BREAK_SEPARATOR
+  }${
+    totalBenefitAmount
+      ? `${MINUS}${formatNumberWithCommas(totalBenefitAmount)}`
+      : 0
+  }${UNITS.WON}`;
+};
+
+const formatPaymentAmount = (paymentAmount) => {
+  return `${RESULT_ITEM_TITLES.PAYMENT_AMOUNT}${
+    SEPARATORS.LINE_BREAK_SEPARATOR
+  }${formatNumberWithCommas(paymentAmount)}${UNITS.WON}`;
+};
+
+const formatEventBadge = (eventBadge) => {
+  return `${RESULT_ITEM_TITLES.EVENT_BADGE}${SEPARATORS.LINE_BREAK_SEPARATOR}${
+    eventBadge === BADGES.NOT_MATCHED_BADGE
+      ? GUIDE_MESSAGES.NOT_EXSIT_MATCHED_RESULT
+      : eventBadge
+  }`;
+};
+
+export const formatResult = (params) => {
+  return [
+    formatResultStartMessage(params.visitDate),
+    formatOrderedMenus(params.orderedMenus),
+    formatTotalOrderAmount(params.totalOrderAmount),
+    formatGiftMenu(params.giftAmount),
+    formatBenefitDetails({
+      tbA: params.totalBenefitAmount,
+      ...params.benefitAmounts,
+    }),
+    formatTotalBenefitAmount(params.totalBenefitAmount),
+    formatPaymentAmount(params.paymentAmount),
+    formatEventBadge(params.eventBadge),
+  ].join(SEPARATORS.RESULT_ITEM_SEOARATOR);
 };
