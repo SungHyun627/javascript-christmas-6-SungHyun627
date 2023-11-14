@@ -1,2 +1,4 @@
-export const MENU_SEPARATOR = ',';
-export const MENU_COUNT_SEOARATOR = '-';
+export const SEPARATORS = Object.freeze({
+  MENU_SEPARATOR: ',',
+  MENU_COUNT_SEOARATOR: '-',
+});

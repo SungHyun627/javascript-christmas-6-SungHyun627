@@ -7,7 +7,7 @@ import {
 } from '../constants/menus.js';
 import { ERROR_MESSAGES } from '../constants/messages.js';
 import { MENU_REGEX, VISIT_DATE_REGEX } from '../constants/regex.js';
-import { MENU_SEPARATOR } from '../constants/separators.js';
+import { SEPARATORS } from '../constants/separators.js';
 import {
   getOrderedMenusCounts,
   getOrderedMenusNames,
@@ -33,7 +33,9 @@ class InputValidator {
   }
 
   static validateOrderedMenusInputFormat(menus) {
-    return menus.split(MENU_SEPARATOR).every(this.validateOrderedMenuFormat);
+    return menus
+      .split(SEPARATORS.MENU_SEPARATOR)
+      .every(this.validateOrderedMenuFormat);
   }
 
   static validateOrderedMenuFormat(menu) {
