@@ -16,6 +16,10 @@ class DisCountEventValidator {
   static isWeekendDiscountApplicalbe(visitDate) {
     return DISCOUNT_EVENTS_DATES.WEEKEND_DISCOUNT_DATES.includes(visitDate);
   }
+
+  static isWeekDayDiscountApplicalbe(visitDate) {
+    return !DISCOUNT_EVENTS_DATES.WEEKEND_DISCOUNT_DATES.includes(visitDate);
+  }
 }
 
 export default DisCountEventValidator;

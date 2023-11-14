@@ -29,18 +29,17 @@ class OrderSheet {
     }, 0);
   }
 
-  getTotalDiscountAmount() {
-    const totalOrderAmount = this.getTotalOrderAmountBeforeDiscount();
-    const totalDiscountAmount = 0;
-    if (!DisCountEventValidator.isDiscountEventApplicable(totalOrderAmount))
-      return 0;
-    totalDiscountAmount += this.getChristmasDdayDiscountAmount();
-    totalDiscountAmount += this.getWeekendDiscountAmount();
-  }
+  getTotalDiscountAmount() {}
 
   getChristmasDdayDiscountAmount() {
     const visitDate = this.getVisitDate();
     if (!DisCountEventValidator.isChristmasDdayDiscountApplicable(visitDate))
+      return 0;
+  }
+
+  getWeekDayDiscountAmount() {
+    const visitDate = this.getVisitDate();
+    if (!DisCountEventValidator.isWeekDayDiscountApplicalbe(visitDate))
       return 0;
   }
 
