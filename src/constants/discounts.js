@@ -1,5 +1,6 @@
 export const DISCOUNT_UNITS = Object.freeze({
   CHRISTMAS_DDAY_DISCOUNT_UNIT: 100,
+  WEEKDAY_DISCOUNT_UNIT: 2023,
 });
 
 export const ZERO_DISCOUNT_AMOUNT = 0;
