@@ -6,6 +6,7 @@ import {
   getOrderedMenusObject,
 } from '../utils/general.js';
 import OrderSheet from '../model/OrderSheet.js';
+import { formatResult } from '../utils/formatting.js';
 
 class EventPlannerController {
   #inputView;
@@ -22,6 +23,7 @@ class EventPlannerController {
     this.printEventPlannerStart();
     await this.getVisitDate();
     await this.getOrderedMenus();
+    this.printResult();
   }
 
   async getVisitDate() {
@@ -58,6 +60,13 @@ class EventPlannerController {
 
   printEventPlannerStart() {
     this.#outputView.printStartMessage();
+  }
+
+  printResult() {
+    const resultOutputFormat = formatResult({
+      ...this.#orderSheet.getResult(),
+    });
+    this.#outputView.printResult(resultOutputFormat);
   }
 }
 
