@@ -2,6 +2,7 @@ import { DISCOUNT_EVENTS_DATES } from '../constants/dates.js';
 import {
   DISCOUNT_UNITS,
   INITIAL_CHRISTMAS_DDAY_DISCOUNT_AMOUNT,
+  SPECIAL_DISCOUNT_AMOUNT,
   ZERO_DISCOUNT_AMOUNT,
 } from '../constants/discounts.js';
 import { MENU_PROPERTIES, MENU_LIST, MENU_TYPES } from '../constants/menus.js';
@@ -71,8 +72,9 @@ class OrderSheet {
 
   getSpecialDiscountAmount() {
     const visitDate = this.getVisitDate();
-    if (!DiscountEventValidator.isSpecialDiscountApplicable(visitDate))
-      return 0;
+    return DiscountEventValidator.isSpecialDiscountApplicable(visitDate)
+      ? SPECIAL_DISCOUNT_AMOUNT
+      : 0;
   }
 
   getCountOfMenuType(menuType) {
