@@ -47,3 +47,9 @@ export const formatTotalBenefitAmount = (totalBenefitAmount) => {
       : 0
   }${UNITS.WON}`;
 };
+
+export const formatPaymentAmount = (paymentAmount) => {
+  return `${RESULT_ITEM_TITLES.PAYMENT_AMOUNT}${
+    SEPARATORS.LINE_BREAK_SEPARATOR
+  }${formatNumberWithCommas(paymentAmount)}${UNITS.WON}`;
+};
