@@ -62,3 +62,26 @@ export const formatEventBadge = (eventBadge) => {
       : eventBadge
   }`;
 };
+
+const formatBenefitDetail = (benefitTitle, benefitAmount) => {
+  return benefitAmount
+    ? `${benefitTitle}: ${MINUS}${formatNumberWithCommas(benefitAmount)}${
+        UNITS.WON
+      }`
+    : '';
+};
+
+export const formatBenefitDetails = ({ tbA, cddA, wddA, wedA, sdA, gA }) => {
+  const benefitDetailsTitle = `${RESULT_ITEM_TITLES.BENEFIT_DETAILS}${SEPARATORS.LINE_BREAK_SEPARATOR}`;
+  if (tbA === 0)
+    return `${benefitDetailsTitle}${GUIDE_MESSAGES.NOT_EXSIT_MATCHED_RESULT}`;
+  const benefitDetails = [];
+  benefitDetails.push(formatBenefitDetail(RESULT_BENEFIT_TITLES.CDD, cddA));
+  benefitDetails.push(formatBenefitDetail(RESULT_BENEFIT_TITLES.WDD, wddA));
+  benefitDetails.push(formatBenefitDetail(RESULT_BENEFIT_TITLES.WED, wedA));
+  benefitDetails.push(formatBenefitDetail(RESULT_BENEFIT_TITLES.SD, sdA));
+  benefitDetails.push(formatBenefitDetail(RESULT_BENEFIT_TITLES.G, gA));
+  return `${benefitDetailsTitle}${benefitDetails
+    .filter((benefitDetail) => benefitDetail.length)
+    .join(SEPARATORS.LINE_BREAK_SEPARATOR)}`;
+};

@@ -41,11 +41,11 @@ class OrderSheet {
       paymentAmount: this.getPaymentAmount(),
       eventBadge: this.getEventBadge(),
       benefitAmounts: {
-        christmasDdayDiscountAmount: this.getChristmasDdayDiscountAmount(),
-        weekDayDiscountAmount: this.getWeekDayDiscountAmount(),
-        weekendDiscountAmount: this.getWeekendDiscountAmount(),
-        specialDiscountAmount: this.getSpecialDiscountAmount(),
-        giftAmount: this.getGiftAmount(),
+        cddA: this.getChristmasDdayDiscountAmount(),
+        wddA: this.getWeekDayDiscountAmount(),
+        wedA: this.getWeekendDiscountAmount(),
+        sdA: this.getSpecialDiscountAmount(),
+        gA: this.getGiftAmount(),
       },
     };
   }
