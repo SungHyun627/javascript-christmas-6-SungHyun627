@@ -17,7 +17,7 @@ class DiscountEventValidator {
   }
 
   isWeekDayDiscountApplicable(visitDate) {
-    return !DISCOUNT_EVENTS_DATES.WEEKEND_DISCOUNT_DATES.includes(visitDate);
+    return DISCOUNT_EVENTS_DATES.WEEKDAY_DISCOUNT_DATES.includes(visitDate);
   }
 
   isWeekendDiscountApplicable(visitDate) {
