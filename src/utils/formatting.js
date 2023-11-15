@@ -9,10 +9,10 @@ import { GIFT_MENUS } from '../constants/gifts.js';
 import { SIGNS } from '../constants/signs.js';
 import { BADGES } from '../constants/badges.js';
 
-const formatResultStartMessage = (visitDate) =>
+const generateResultStartMessageFormat = (visitDate) =>
   `12${UNITS.MONTH} ${visitDate}${UNITS.DATE}에 ${GUIDE_MESSAGES.SHOW_RESULT}`;
 
-const formatOrderedMenus = (orderedMenus) => {
+const generateOrderedMenusFormat = (orderedMenus) => {
   return `${RESULT_ITEM_TITLES.ORDERED_MENUS}${
     SEPARATORS.LINE_BREAK_SEPARATOR
   }${Object.entries(orderedMenus)
@@ -23,15 +23,15 @@ const formatOrderedMenus = (orderedMenus) => {
     .join(SEPARATORS.LINE_BREAK_SEPARATOR)}`;
 };
 
-const formatNumberWithCommas = (number) => number.toLocaleString();
+const generateNumberWithCommasFormat = (number) => number.toLocaleString();
 
-const formatTotalOrderAmount = (totalOrderAmount) => {
+const generateTotalOrderAmountFormat = (totalOrderAmount) => {
   return `${RESULT_ITEM_TITLES.TOTAL_ORDER_AMOUNT}${
     SEPARATORS.LINE_BREAK_SEPARATOR
-  }${formatNumberWithCommas(totalOrderAmount)}${UNITS.WON}`;
+  }${generateNumberWithCommasFormat(totalOrderAmount)}${UNITS.WON}`;
 };
 
-const formatGiftMenu = (giftAmount) => {
+const generateGiftMenuFormat = (giftAmount) => {
   return `${RESULT_ITEM_TITLES.GIFT_MENU}${SEPARATORS.LINE_BREAK_SEPARATOR}${
     giftAmount
       ? `${GIFT_MENUS.GIFT_MENU} 1${UNITS.COUNT}`
@@ -39,46 +39,46 @@ const formatGiftMenu = (giftAmount) => {
   }`;
 };
 
-const formatBenefitDetail = (benefitTitle, benefitAmount) => {
+const generateDetailFormat = (benefitTitle, benefitAmount) => {
   return benefitAmount
-    ? `${benefitTitle}: ${SIGNS.MINUS}${formatNumberWithCommas(benefitAmount)}${
-        UNITS.WON
-      }`
+    ? `${benefitTitle}: ${SIGNS.MINUS}${generateNumberWithCommasFormat(
+        benefitAmount
+      )}${UNITS.WON}`
     : '';
 };
 
-const formatBenefitDetails = ({ tbA, cddA, wddA, wedA, sdA, gA }) => {
+const generateBenefitDetailsFormat = ({ tbA, cddA, wddA, wedA, sdA, gA }) => {
   const benefitDetailsTitle = `${RESULT_ITEM_TITLES.BENEFIT_DETAILS}${SEPARATORS.LINE_BREAK_SEPARATOR}`;
   if (tbA === 0)
     return `${benefitDetailsTitle}${GUIDE_MESSAGES.NOT_EXSIT_MATCHED_RESULT}`;
   const benefitDetails = [];
-  benefitDetails.push(formatBenefitDetail(RESULT_BENEFIT_TITLES.CDD, cddA));
-  benefitDetails.push(formatBenefitDetail(RESULT_BENEFIT_TITLES.WDD, wddA));
-  benefitDetails.push(formatBenefitDetail(RESULT_BENEFIT_TITLES.WED, wedA));
-  benefitDetails.push(formatBenefitDetail(RESULT_BENEFIT_TITLES.SD, sdA));
-  benefitDetails.push(formatBenefitDetail(RESULT_BENEFIT_TITLES.G, gA));
+  benefitDetails.push(generateDetailFormat(RESULT_BENEFIT_TITLES.CDD, cddA));
+  benefitDetails.push(generateDetailFormat(RESULT_BENEFIT_TITLES.WDD, wddA));
+  benefitDetails.push(generateDetailFormat(RESULT_BENEFIT_TITLES.WED, wedA));
+  benefitDetails.push(generateDetailFormat(RESULT_BENEFIT_TITLES.SD, sdA));
+  benefitDetails.push(generateDetailFormat(RESULT_BENEFIT_TITLES.G, gA));
   return `${benefitDetailsTitle}${benefitDetails
     .filter((benefitDetail) => benefitDetail.length)
     .join(SEPARATORS.LINE_BREAK_SEPARATOR)}`;
 };
 
-const formatTotalBenefitAmount = (totalBenefitAmount) => {
+const generateTotalBenefitAmountFormat = (totalBenefitAmount) => {
   return `${RESULT_ITEM_TITLES.TOTAL_BENEFIT_AMOUNT}${
     SEPARATORS.LINE_BREAK_SEPARATOR
   }${
     totalBenefitAmount
-      ? `${SIGNS.MINUS}${formatNumberWithCommas(totalBenefitAmount)}`
+      ? `${SIGNS.MINUS}${generateNumberWithCommasFormat(totalBenefitAmount)}`
       : 0
   }${UNITS.WON}`;
 };
 
-const formatPaymentAmount = (paymentAmount) => {
+const generatePaymentAmountFormat = (paymentAmount) => {
   return `${RESULT_ITEM_TITLES.PAYMENT_AMOUNT}${
     SEPARATORS.LINE_BREAK_SEPARATOR
-  }${formatNumberWithCommas(paymentAmount)}${UNITS.WON}`;
+  }${generateNumberWithCommasFormat(paymentAmount)}${UNITS.WON}`;
 };
 
-const formatEventBadge = (eventBadge) => {
+const generateEventBadgeFormat = (eventBadge) => {
   return `${RESULT_ITEM_TITLES.EVENT_BADGE}${SEPARATORS.LINE_BREAK_SEPARATOR}${
     eventBadge === BADGES.NOT_MATCHED_BADGE
       ? GUIDE_MESSAGES.NOT_EXSIT_MATCHED_RESULT
@@ -86,18 +86,18 @@ const formatEventBadge = (eventBadge) => {
   }`;
 };
 
-export const formatResult = (params) => {
+export const generateResultFormat = (params) => {
   return [
-    formatResultStartMessage(params.visitDate),
-    formatOrderedMenus(params.orderedMenus),
-    formatTotalOrderAmount(params.totalOrderAmount),
-    formatGiftMenu(params.giftAmount),
-    formatBenefitDetails({
+    generateResultStartMessageFormat(params.visitDate),
+    generateOrderedMenusFormat(params.orderedMenus),
+    generateTotalOrderAmountFormat(params.totalOrderAmount),
+    generateGiftMenuFormat(params.giftAmount),
+    generateBenefitDetailsFormat({
       tbA: params.totalBenefitAmount,
       ...params.benefitAmounts,
     }),
-    formatTotalBenefitAmount(params.totalBenefitAmount),
-    formatPaymentAmount(params.paymentAmount),
-    formatEventBadge(params.eventBadge),
+    generateTotalBenefitAmountFormat(params.totalBenefitAmount),
+    generatePaymentAmountFormat(params.paymentAmount),
+    generateEventBadgeFormat(params.eventBadge),
   ].join(SEPARATORS.RESULT_ITEM_SEOARATOR);
 };
