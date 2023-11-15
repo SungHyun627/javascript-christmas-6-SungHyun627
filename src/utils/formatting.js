@@ -9,10 +9,10 @@ import { GIFT_MENUS } from '../constants/gifts.js';
 import { SIGNS } from '../constants/signs.js';
 import { BADGES } from '../constants/badges.js';
 
-const generateResultStartMessageFormat = (visitDate) =>
+export const generateResultStartMessageFormat = (visitDate) =>
   `12${UNITS.MONTH} ${visitDate}${UNITS.DATE}에 ${GUIDE_MESSAGES.SHOW_RESULT}`;
 
-const generateOrderedMenusFormat = (orderedMenus) => {
+export const generateOrderedMenusFormat = (orderedMenus) => {
   return `${RESULT_ITEM_TITLES.ORDERED_MENUS}${
     SEPARATORS.LINE_BREAK_SEPARATOR
   }${Object.entries(orderedMenus)
@@ -23,15 +23,16 @@ const generateOrderedMenusFormat = (orderedMenus) => {
     .join(SEPARATORS.LINE_BREAK_SEPARATOR)}`;
 };
 
-const generateNumberWithCommasFormat = (number) => number.toLocaleString();
+export const generateNumberWithCommasFormat = (number) =>
+  number.toLocaleString();
 
-const generateTotalOrderAmountFormat = (totalOrderAmount) => {
+export const generateTotalOrderAmountFormat = (totalOrderAmount) => {
   return `${RESULT_ITEM_TITLES.TOTAL_ORDER_AMOUNT}${
     SEPARATORS.LINE_BREAK_SEPARATOR
   }${generateNumberWithCommasFormat(totalOrderAmount)}${UNITS.WON}`;
 };
 
-const generateGiftMenuFormat = (giftAmount) => {
+export const generateGiftMenuFormat = (giftAmount) => {
   return `${RESULT_ITEM_TITLES.GIFT_MENU}${SEPARATORS.LINE_BREAK_SEPARATOR}${
     giftAmount
       ? `${GIFT_MENUS.GIFT_MENU} 1${UNITS.COUNT}`
@@ -39,7 +40,7 @@ const generateGiftMenuFormat = (giftAmount) => {
   }`;
 };
 
-const generateDetailFormat = (benefitTitle, benefitAmount) => {
+export const generateDetailFormat = (benefitTitle, benefitAmount) => {
   return benefitAmount
     ? `${benefitTitle}: ${SIGNS.MINUS}${generateNumberWithCommasFormat(
         benefitAmount
@@ -47,7 +48,7 @@ const generateDetailFormat = (benefitTitle, benefitAmount) => {
     : '';
 };
 
-const generateBenefitDetailsFormat = ({ tbA, cddA, wddA, wedA, sdA, gA }) => {
+export const generateDetailsFormat = ({ tbA, cddA, wddA, wedA, sdA, gA }) => {
   const benefitDetailsTitle = `${RESULT_ITEM_TITLES.BENEFIT_DETAILS}${SEPARATORS.LINE_BREAK_SEPARATOR}`;
   if (tbA === 0)
     return `${benefitDetailsTitle}${GUIDE_MESSAGES.NOT_EXSIT_MATCHED_RESULT}`;
@@ -62,7 +63,7 @@ const generateBenefitDetailsFormat = ({ tbA, cddA, wddA, wedA, sdA, gA }) => {
     .join(SEPARATORS.LINE_BREAK_SEPARATOR)}`;
 };
 
-const generateTotalBenefitAmountFormat = (totalBenefitAmount) => {
+export const generateTotalBenefitAmountFormat = (totalBenefitAmount) => {
   return `${RESULT_ITEM_TITLES.TOTAL_BENEFIT_AMOUNT}${
     SEPARATORS.LINE_BREAK_SEPARATOR
   }${
@@ -72,13 +73,13 @@ const generateTotalBenefitAmountFormat = (totalBenefitAmount) => {
   }${UNITS.WON}`;
 };
 
-const generatePaymentAmountFormat = (paymentAmount) => {
+export const generatePaymentAmountFormat = (paymentAmount) => {
   return `${RESULT_ITEM_TITLES.PAYMENT_AMOUNT}${
     SEPARATORS.LINE_BREAK_SEPARATOR
   }${generateNumberWithCommasFormat(paymentAmount)}${UNITS.WON}`;
 };
 
-const generateEventBadgeFormat = (eventBadge) => {
+export const generateEventBadgeFormat = (eventBadge) => {
   return `${RESULT_ITEM_TITLES.EVENT_BADGE}${SEPARATORS.LINE_BREAK_SEPARATOR}${
     eventBadge === BADGES.NOT_MATCHED_BADGE
       ? GUIDE_MESSAGES.NOT_EXSIT_MATCHED_RESULT
@@ -92,7 +93,7 @@ export const generateResultFormat = (params) => {
     generateOrderedMenusFormat(params.orderedMenus),
     generateTotalOrderAmountFormat(params.totalOrderAmount),
     generateGiftMenuFormat(params.giftAmount),
-    generateBenefitDetailsFormat({
+    generateDetailsFormat({
       tbA: params.totalBenefitAmount,
       ...params.benefitAmounts,
     }),
@@ -100,4 +101,18 @@ export const generateResultFormat = (params) => {
     generatePaymentAmountFormat(params.paymentAmount),
     generateEventBadgeFormat(params.eventBadge),
   ].join(SEPARATORS.RESULT_ITEM_SEOARATOR);
+};
+
+export const formatter = {
+  generateResultStartMessageFormat,
+  generateOrderedMenusFormat,
+  generateNumberWithCommasFormat,
+  generateTotalOrderAmountFormat,
+  generateGiftMenuFormat,
+  generateDetailFormat,
+  generateDetailsFormat,
+  generateTotalBenefitAmountFormat,
+  generatePaymentAmountFormat,
+  generateEventBadgeFormat,
+  generateResultFormat,
 };
