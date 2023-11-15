@@ -5,7 +5,7 @@ import {
 } from '../constants/resultTitles.js';
 import { SEPARATORS } from '../constants/separators.js';
 import { UNITS } from '../constants/units.js';
-import { GIFT_MENU } from '../constants/gifts.js';
+import { GIFT_MENUS } from '../constants/gifts.js';
 import { SIGNS } from '../constants/signs.js';
 import { BADGES } from '../constants/badges.js';
 
@@ -34,7 +34,7 @@ const formatTotalOrderAmount = (totalOrderAmount) => {
 const formatGiftMenu = (giftAmount) => {
   return `${RESULT_ITEM_TITLES.GIFT_MENU}${SEPARATORS.LINE_BREAK_SEPARATOR}${
     giftAmount
-      ? `${GIFT_MENU} 1${UNITS.COUNT}`
+      ? `${GIFT_MENUS.GIFT_MENU} 1${UNITS.COUNT}`
       : GUIDE_MESSAGES.NOT_EXSIT_MATCHED_RESULT
   }`;
 };
