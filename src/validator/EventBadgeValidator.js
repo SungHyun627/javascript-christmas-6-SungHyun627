@@ -1,20 +1,22 @@
-import { MIN_TOTAL_BENEFIT_AMOUNT } from '../constants/badges.js';
+import { BADGE_CRITERIAS } from '../constants/badges.js';
 
 class EventBadgeValidator {
   static isStarBadgeGettable(totalBenefitAmount) {
     return (
-      totalBenefitAmount >= MIN_TOTAL_BENEFIT_AMOUNT.STAR &&
-      totalBenefitAmount < MIN_TOTAL_BENEFIT_AMOUNT.TREE
+      totalBenefitAmount >= BADGE_CRITERIAS.STAR &&
+      totalBenefitAmount < BADGE_CRITERIAS.TREE
     );
   }
+
   static isTreeBadgeGettable(totalBenefitAmount) {
     return (
-      totalBenefitAmount >= MIN_TOTAL_BENEFIT_AMOUNT.TREE &&
-      totalBenefitAmount < MIN_TOTAL_BENEFIT_AMOUNT.SANTA
+      totalBenefitAmount >= BADGE_CRITERIAS.TREE &&
+      totalBenefitAmount < BADGE_CRITERIAS.SANTA
     );
   }
+
   static isSantaBadgeGettable(totalBenefitAmount) {
-    return totalBenefitAmount >= MIN_TOTAL_BENEFIT_AMOUNT.SANTA;
+    return totalBenefitAmount >= BADGE_CRITERIAS.SANTA;
   }
 }
 

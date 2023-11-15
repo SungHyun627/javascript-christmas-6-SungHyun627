@@ -1,12 +1,11 @@
 import {
   MENU_LIST,
-  MAX_TOTAL_COUNTS,
   MENU_PROPERTIES,
   MENU_TYPES,
-  MIN_ORDERED_MENU_COUNT,
+  MENU_CRITERIAS,
 } from '../constants/menus.js';
 import { ERROR_MESSAGES } from '../constants/messages.js';
-import { MENU_REGEX, VISIT_DATE_REGEX } from '../constants/regex.js';
+import { REGEXS } from '../constants/regexs.js';
 import { SEPARATORS } from '../constants/separators.js';
 import {
   getOrderedMenusCounts,
@@ -16,7 +15,7 @@ import {
 
 class InputValidator {
   static validateVisitDate(visitDate) {
-    if (!VISIT_DATE_REGEX.test(visitDate))
+    if (!REGEXS.VISIT_DATE_REGEX.test(visitDate))
       throwError(ERROR_MESSAGES.NOT_VALID_VISIT_DATE);
     return true;
   }
@@ -39,7 +38,8 @@ class InputValidator {
   }
 
   static validateOrderedMenuFormat(menu) {
-    if (!MENU_REGEX.test(menu)) throwError(ERROR_MESSAGES.NOT_VALID_MENUS);
+    if (!REGEXS.MENU_REGEX.test(menu))
+      throwError(ERROR_MESSAGES.NOT_VALID_MENUS);
     return true;
   }
 
@@ -62,7 +62,7 @@ class InputValidator {
   }
 
   static validateOrderedMenuCountIsBiggerThanZero(menuCount) {
-    if (menuCount < MIN_ORDERED_MENU_COUNT)
+    if (menuCount < MENU_CRITERIAS.MIN_ORDERED_MENU_COUNT)
       throwError(ERROR_MESSAGES.NOT_VALID_MENUS);
     return true;
   }
@@ -84,15 +84,15 @@ class InputValidator {
   static validateIsMenuDrink(menuName) {
     return MENU_LIST[menuName][MENU_PROPERTIES.MENU_TYPE] === MENU_TYPES.DRINK;
   }
+
   static validateTotalCounts(menus) {
     const orderedMenuCounts = getOrderedMenusCounts(menus);
     const totalCounts = orderedMenuCounts.reduce(
       (acc, curCount) => acc + curCount,
       0
     );
-    if (totalCounts > MAX_TOTAL_COUNTS)
+    if (totalCounts > MENU_CRITERIAS.MAX_TOTAL_COUNTS)
       throwError(ERROR_MESSAGES.OVERORDER_MAX_TOTAL_COUNTS);
-    return;
   }
 }
 

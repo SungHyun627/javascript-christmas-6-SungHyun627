@@ -6,7 +6,7 @@ import {
 import { SEPARATORS } from '../constants/separators.js';
 import { UNITS } from '../constants/units.js';
 import { GIFT_MENU } from '../constants/gifts.js';
-import { MINUS } from '../constants/signs.js';
+import { SIGNS } from '../constants/signs.js';
 import { BADGES } from '../constants/badges.js';
 
 const formatResultStartMessage = (visitDate) =>
@@ -41,7 +41,7 @@ const formatGiftMenu = (giftAmount) => {
 
 const formatBenefitDetail = (benefitTitle, benefitAmount) => {
   return benefitAmount
-    ? `${benefitTitle}: ${MINUS}${formatNumberWithCommas(benefitAmount)}${
+    ? `${benefitTitle}: ${SIGNS.MINUS}${formatNumberWithCommas(benefitAmount)}${
         UNITS.WON
       }`
     : '';
@@ -67,7 +67,7 @@ const formatTotalBenefitAmount = (totalBenefitAmount) => {
     SEPARATORS.LINE_BREAK_SEPARATOR
   }${
     totalBenefitAmount
-      ? `${MINUS}${formatNumberWithCommas(totalBenefitAmount)}`
+      ? `${SIGNS.MINUS}${formatNumberWithCommas(totalBenefitAmount)}`
       : 0
   }${UNITS.WON}`;
 };

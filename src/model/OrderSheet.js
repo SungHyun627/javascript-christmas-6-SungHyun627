@@ -1,12 +1,7 @@
 import { BADGES } from '../constants/badges.js';
 import { DISCOUNT_EVENTS_DATES } from '../constants/dates.js';
-import {
-  DISCOUNT_UNITS,
-  INITIAL_CHRISTMAS_DDAY_DISCOUNT_AMOUNT,
-  SPECIAL_DISCOUNT_AMOUNT,
-  ZERO_DISCOUNT_AMOUNT,
-} from '../constants/discounts.js';
-import { GIFT_MENU, ZERO_GIFT_AMOUNT } from '../constants/gifts.js';
+import { DISCOUNT_UNITS, DISCOUNT_AMOUNTS } from '../constants/discounts.js';
+import { GIFT_MENUS, GIFT_AMOUNTS } from '../constants/gifts.js';
 import { MENU_PROPERTIES, MENU_LIST, MENU_TYPES } from '../constants/menus.js';
 import DiscountEventValidator from '../validator/DiscountEventValidator.js';
 import EventBadgeValidator from '../validator/EventBadgeValidator.js';
@@ -67,14 +62,14 @@ class OrderSheet {
           this.getWeekDayDiscountAmount() +
           this.getWeekendDiscountAmount() +
           this.getSpecialDiscountAmount()
-      : ZERO_DISCOUNT_AMOUNT;
+      : DISCOUNT_AMOUNTS.ZERO_DISCOUNT_AMOUNT;
   }
 
   getGiftAmount() {
     const totalOrderAmount = this.getTotalOrderAmount();
     return GiftEventValidator.isGiftEventApplicable(totalOrderAmount)
-      ? MENU_LIST[GIFT_MENU][MENU_PROPERTIES.MENU_PRICE]
-      : ZERO_GIFT_AMOUNT;
+      ? MENU_LIST[GIFT_MENUS.GIFT_MENU][MENU_PROPERTIES.MENU_PRICE]
+      : GIFT_AMOUNTS.ZERO_GIFT_AMOUNT;
   }
 
   getTotalBenefitAmount() {
@@ -99,11 +94,11 @@ class OrderSheet {
   getChristmasDdayDiscountAmount() {
     const visitDate = this.getVisitDate();
     return DiscountEventValidator.isChristmasDdayDiscountApplicable(visitDate)
-      ? INITIAL_CHRISTMAS_DDAY_DISCOUNT_AMOUNT +
+      ? DISCOUNT_AMOUNTS.INITIAL_CHRISTMAS_DDAY_DISCOUNT_AMOUNT +
           (visitDate -
             DISCOUNT_EVENTS_DATES.CHRISTMAS_DDAY_DISCOUNT_START_DATE) *
             DISCOUNT_UNITS.CHRISTMAS_DDAY_DISCOUNT_UNIT
-      : ZERO_DISCOUNT_AMOUNT;
+      : DISCOUNT_AMOUNTS.ZERO_DISCOUNT_AMOUNT;
   }
 
   getWeekDayDiscountAmount() {
@@ -125,7 +120,7 @@ class OrderSheet {
   getSpecialDiscountAmount() {
     const visitDate = this.getVisitDate();
     return DiscountEventValidator.isSpecialDiscountApplicable(visitDate)
-      ? SPECIAL_DISCOUNT_AMOUNT
+      ? DISCOUNT_AMOUNTS.SPECIAL_DISCOUNT_AMOUNT
       : 0;
   }
 

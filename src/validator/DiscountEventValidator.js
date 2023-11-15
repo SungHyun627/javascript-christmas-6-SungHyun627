@@ -1,9 +1,12 @@
 import { DISCOUNT_EVENTS_DATES } from '../constants/dates.js';
-import { MIN_TOTAL_ORDER_AMOUNT_FOR_DISCOUNT_EVENT } from '../constants/discounts.js';
+import { DISCOUNT_EVENT_CRITERIAS } from '../constants/discounts.js';
 
 class DiscountEventValidator {
   static isDiscountEventApplicable(totalOrderAmount) {
-    return totalOrderAmount >= MIN_TOTAL_ORDER_AMOUNT_FOR_DISCOUNT_EVENT;
+    return (
+      totalOrderAmount >=
+      DISCOUNT_EVENT_CRITERIAS.MIN_TOTAL_ORDER_AMOUNT_FOR_DISCOUNT_EVENT
+    );
   }
 
   static isChristmasDdayDiscountApplicable(visitDate) {

@@ -62,5 +62,7 @@ export const MENU_PROPERTIES = Object.freeze({
   MENU_PRICE: 'MENU_PRICE',
 });
 
-export const MIN_ORDERED_MENU_COUNT = 1;
-export const MAX_TOTAL_COUNTS = 20;
+export const MENU_CRITERIAS = Object.freeze({
+  MIN_ORDERED_MENU_COUNT: 1,
+  MAX_TOTAL_COUNTS: 20,
+});

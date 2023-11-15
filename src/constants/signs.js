@@ -1,1 +1,1 @@
-export const MINUS = '-';
+export const SIGNS = Object.freeze({ MINUS: '-' });
