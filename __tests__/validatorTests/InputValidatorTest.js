@@ -2,11 +2,12 @@ import { ERROR_MESSAGES } from '../../src/constants/messages.js';
 import InputValidator from '../../src/validators/InputValidator.js';
 
 describe('입력값 유효성 검사(InputValidator) 클래스 테스트', () => {
+  const inputValidator = new InputValidator();
   test.each(['', '32', '%[', '입력값', '{abc}'])(
     '[validateVisitDate] 메서드. 방문 날짜의 입력값이 1부터 31사이의 숫자형 문자열이 아닌 경우, 에러가 발생한다.',
     (invalidVisitDateInput) => {
       expect(() => {
-        InputValidator.validateVisitDate(invalidVisitDateInput);
+        inputValidator.validateVisitDate(invalidVisitDateInput);
       }).toThrow(ERROR_MESSAGES.NOT_VALID_VISIT_DATE);
     }
   );
@@ -21,7 +22,7 @@ describe('입력값 유효성 검사(InputValidator) 클래스 테스트', () =>
      메뉴의 개수가 1보다 작거나, 중복메뉴가 존재하는 경우, 에러가 발생한다.`,
     (invalidMenusInput) => {
       expect(() => {
-        InputValidator.validateOrderedMenus(invalidMenusInput);
+        inputValidator.validateOrderedMenus(invalidMenusInput);
       }).toThrow(ERROR_MESSAGES.NOT_VALID_MENUS);
     }
   );
@@ -29,7 +30,7 @@ describe('입력값 유효성 검사(InputValidator) 클래스 테스트', () =>
     '[validateOrderedMenus] 메서드. 주문메뉴가 음료 메뉴만 있을 시, 에러가 발생한다.',
     (invalidMenusInput) => {
       expect(() => {
-        InputValidator.validateOrderedMenus(invalidMenusInput);
+        inputValidator.validateOrderedMenus(invalidMenusInput);
       }).toThrow(ERROR_MESSAGES.ONLY_DRINK);
     }
   );
@@ -38,7 +39,7 @@ describe('입력값 유효성 검사(InputValidator) 클래스 테스트', () =>
     '[validateOrderedMenus] 메서드. 총 주문 개수가 20개가 넘을 시, 에러가 발생한다.',
     (invalidMenusInput) => {
       expect(() => {
-        InputValidator.validateOrderedMenus(invalidMenusInput);
+        inputValidator.validateOrderedMenus(invalidMenusInput);
       }).toThrow(ERROR_MESSAGES.OVERORDER_MAX_TOTAL_COUNTS);
     }
   );
@@ -54,7 +55,7 @@ describe('입력값 유효성 검사(InputValidator) 클래스 테스트', () =>
     '[validateOrderedMenuFormat] 메서드. 주문할 메뉴와 개수의 형식이 `메뉴이름-메뉴개수` 형식이 아닌 경우, 에러가 발생한다.',
     (invalidMenuFormat) => {
       expect(() => {
-        InputValidator.validateOrderedMenuFormat(invalidMenuFormat);
+        inputValidator.validateOrderedMenuFormat(invalidMenuFormat);
       }).toThrow(ERROR_MESSAGES.NOT_VALID_MENUS);
     }
   );
@@ -69,7 +70,7 @@ describe('입력값 유효성 검사(InputValidator) 클래스 테스트', () =>
     '[validateOrderedMenusInputFormat] 메서드. 주문할 메뉴와 개수의 형식들이 valid하지 않은 경우, 에러가 발생한다.',
     (invalidMenusInput) => {
       expect(() => {
-        InputValidator.validateOrderedMenusInputFormat(invalidMenusInput);
+        inputValidator.validateOrderedMenusInputFormat(invalidMenusInput);
       }).toThrow(ERROR_MESSAGES.NOT_VALID_MENUS);
     }
   );
@@ -77,7 +78,7 @@ describe('입력값 유효성 검사(InputValidator) 클래스 테스트', () =>
     '[validateOrderedMenuInMenuList] 메서드. 주문할 메뉴가 메뉴판에 없는 경우, 에러가 발생한다.',
     (invalidMenuName) => {
       expect(() => {
-        InputValidator.validateOrderedMenusInputFormat(invalidMenuName);
+        inputValidator.validateOrderedMenusInputFormat(invalidMenuName);
       }).toThrow(ERROR_MESSAGES.NOT_VALID_MENUS);
     }
   );
@@ -85,7 +86,7 @@ describe('입력값 유효성 검사(InputValidator) 클래스 테스트', () =>
     '[validateEveryOrderedMenuInMenuList] 메서드. 주문할 메뉴들 중 메뉴판에 없는 메뉴가 존재하는 경우, 에러가 발생한다.',
     (invalidMenusInput) => {
       expect(() => {
-        InputValidator.validateEveryOrderedMenuInMenuList(invalidMenusInput);
+        inputValidator.validateEveryOrderedMenuInMenuList(invalidMenusInput);
       }).toThrow(ERROR_MESSAGES.NOT_VALID_MENUS);
     }
   );
@@ -93,7 +94,7 @@ describe('입력값 유효성 검사(InputValidator) 클래스 테스트', () =>
     '[validateOrderedMenuCountIsBiggerThanZero] 메서드. 메뉴의 개수가 1보다 작은 경우, 에러가 발생한다.',
     (invalidMenuCount) => {
       expect(() => {
-        InputValidator.validateOrderedMenuCountIsBiggerThanZero(
+        inputValidator.validateOrderedMenuCountIsBiggerThanZero(
           invalidMenuCount
         );
       }).toThrow(ERROR_MESSAGES.NOT_VALID_MENUS);
@@ -103,7 +104,7 @@ describe('입력값 유효성 검사(InputValidator) 클래스 테스트', () =>
     '[validateEveryOrderedMenuCountIsBiggerThanZero] 메서드. 주문할 메뉴들 중 메뉴의 개수가 1보다 작은 메뉴가 존재하는 경우, 에러가 발생한다.',
     (invalidMenusInput) => {
       expect(() => {
-        InputValidator.validateEveryOrderedMenuCountIsBiggerThanZero(
+        inputValidator.validateEveryOrderedMenuCountIsBiggerThanZero(
           invalidMenusInput
         );
       }).toThrow(ERROR_MESSAGES.NOT_VALID_MENUS);
@@ -113,7 +114,7 @@ describe('입력값 유효성 검사(InputValidator) 클래스 테스트', () =>
     '[validateIsDuplicatedMenuName] 메서드. 중복 메뉴가 존재하는 경우, 에러가 발생한다.',
     (invalidMenusInput) => {
       expect(() => {
-        InputValidator.validateIsDuplicatedMenuName(invalidMenusInput);
+        inputValidator.validateIsDuplicatedMenuName(invalidMenusInput);
       }).toThrow(ERROR_MESSAGES.NOT_VALID_MENUS);
     }
   );
@@ -121,7 +122,7 @@ describe('입력값 유효성 검사(InputValidator) 클래스 테스트', () =>
     '[validateOnlyDrinkInOrderedMenus] 메서드. 주문메뉴가 음료 메뉴만 있을 시, 에러가 발생한다.',
     (invalidMenusInput) => {
       expect(() => {
-        InputValidator.validateOnlyDrinkInOrderedMenus(invalidMenusInput);
+        inputValidator.validateOnlyDrinkInOrderedMenus(invalidMenusInput);
       }).toThrow(ERROR_MESSAGES.ONLY_DRINK);
     }
   );
@@ -129,7 +130,7 @@ describe('입력값 유효성 검사(InputValidator) 클래스 테스트', () =>
     '[validateTotalCounts] 메서드. 총 주문 개수가 20개가 넘을 시, 에러가 발생한다.',
     (invalidMenusInput) => {
       expect(() => {
-        InputValidator.validateTotalCounts(invalidMenusInput);
+        inputValidator.validateTotalCounts(invalidMenusInput);
       }).toThrow(ERROR_MESSAGES.OVERORDER_MAX_TOTAL_COUNTS);
     }
   );
