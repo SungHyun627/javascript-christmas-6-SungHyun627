@@ -6,7 +6,7 @@ import {
   getOrderedMenusObject,
 } from '../utils/general.js';
 import OrderSheet from '../models/OrderSheet.js';
-import { formatResult } from '../utils/formatting.js';
+import { generateResultFormat } from '../utils/formatting.js';
 
 class EventPlannerController {
   #inputView;
@@ -27,12 +27,13 @@ class EventPlannerController {
   }
 
   async getVisitDate() {
+    const inputValidator = new InputValidator();
     while (true) {
       const visitDateInput = removeWhiteSpaceFromBothEndsOfString(
         await this.#inputView.readVisitDate()
       );
       try {
-        InputValidator.validateVisitDate(visitDateInput);
+        inputValidator.validateVisitDate(visitDateInput);
         this.#orderSheet.setVisitDate(Number(visitDateInput));
         break;
       } catch (error) {
@@ -42,12 +43,13 @@ class EventPlannerController {
   }
 
   async getOrderedMenus() {
+    const inputValidator = new InputValidator();
     while (true) {
       const orderedMenusInput = removeWhiteSpaceFromBothEndsOfString(
         await this.#inputView.readMenus()
       );
       try {
-        InputValidator.validateOrderedMenus(orderedMenusInput);
+        inputValidator.validateOrderedMenus(orderedMenusInput);
         this.#orderSheet.setOrderedMenus(
           getOrderedMenusObject(orderedMenusInput)
         );
@@ -63,7 +65,7 @@ class EventPlannerController {
   }
 
   printResult() {
-    const resultOutputFormat = formatResult({
+    const resultOutputFormat = generateResultFormat({
       ...this.#orderSheet.getResult(),
     });
     this.#outputView.printResult(resultOutputFormat);
