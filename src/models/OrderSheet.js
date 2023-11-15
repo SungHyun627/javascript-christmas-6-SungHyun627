@@ -3,6 +3,7 @@ import { DISCOUNT_EVENTS_DATES } from '../constants/dates.js';
 import { DISCOUNT_UNITS, DISCOUNT_AMOUNTS } from '../constants/discounts.js';
 import { GIFT_MENUS, GIFT_AMOUNTS } from '../constants/gifts.js';
 import { MENU_PROPERTIES, MENU_LIST, MENU_TYPES } from '../constants/menus.js';
+import { getCountOfMenuType } from '../utils/general.js';
 import DiscountEventValidator from '../validators/DiscountEventValidator.js';
 import EventBadgeValidator from '../validators/EventBadgeValidator.js';
 import GiftEventValidator from '../validators/GiftEventValidator.js';
@@ -15,7 +16,7 @@ class OrderSheet {
   }
 
   setOrderedMenus(orderedMenus) {
-    this.#orderedMenus = orderedMenus;
+    this.#orderedMenus = { ...orderedMenus };
   }
 
   getVisitDate() {
@@ -108,7 +109,11 @@ class OrderSheet {
 
   getWeekDayDiscountAmount() {
     const visitDate = this.getVisitDate();
-    const countOfDessertMenus = this.getCountOfMenuType(MENU_TYPES.DESSERT);
+    const menus = this.getOrderedMenus();
+    const countOfDessertMenus = getCountOfMenuType({
+      menus,
+      menuType: MENU_TYPES.DESSERT,
+    });
     const discountEventValidator = new DiscountEventValidator();
     return discountEventValidator.isWeekDayDiscountApplicable(visitDate)
       ? countOfDessertMenus * DISCOUNT_UNITS.WEEKDAY_DISCOUNT_UNIT
@@ -117,7 +122,11 @@ class OrderSheet {
 
   getWeekendDiscountAmount() {
     const visitDate = this.getVisitDate();
-    const countOfMainDishMenus = this.getCountOfMenuType(MENU_TYPES.MAIN_DISH);
+    const menus = this.getOrderedMenus();
+    const countOfMainDishMenus = getCountOfMenuType({
+      menus,
+      menuType: MENU_TYPES.MAIN_DISH,
+    });
     const discountEventValidator = new DiscountEventValidator();
     return discountEventValidator.isWeekendDiscountApplicable(visitDate)
       ? countOfMainDishMenus * DISCOUNT_UNITS.WEEKEND_DISCOUNT_UNIT
@@ -130,16 +139,6 @@ class OrderSheet {
     return discountEventValidator.isSpecialDiscountApplicable(visitDate)
       ? DISCOUNT_AMOUNTS.SPECIAL_DISCOUNT_AMOUNT
       : 0;
-  }
-
-  getCountOfMenuType(menuType) {
-    const menus = this.getOrderedMenus();
-    const menuNames = Object.keys(menus);
-    return menuNames.reduce((acc, menuName) => {
-      return MENU_LIST[menuName][MENU_PROPERTIES.MENU_TYPE] === menuType
-        ? acc + menus[menuName]
-        : acc;
-    }, 0);
   }
 }
 

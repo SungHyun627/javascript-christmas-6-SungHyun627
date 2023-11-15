@@ -24,6 +24,15 @@ export const getOrderedMenusCounts = (menusInput) => {
   });
 };
 
+export const getCountOfMenuType = ({ menus, menuType }) => {
+  const menuNames = Object.keys(menus);
+  return menuNames.reduce((acc, menuName) => {
+    return MENU_LIST[menuName][MENU_PROPERTIES.MENU_TYPE] === menuType
+      ? acc + menus[menuName]
+      : acc;
+  }, 0);
+};
+
 export const isDrinkMenu = (menuName) => {
   return MENU_LIST[menuName][MENU_PROPERTIES.MENU_TYPE] === MENU_TYPES.DRINK;
 };
