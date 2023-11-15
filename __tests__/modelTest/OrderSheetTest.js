@@ -1,4 +1,4 @@
-import OrderSheet from '../../src/models/OrderSheet';
+import OrderSheet from '../../src/models/OrderSheet.js';
 
 describe('주문 내역서(OrderSheet) 클래스 테스트', () => {
   let orderSheet;
