@@ -1,15 +1,11 @@
-import {
-  MENU_LIST,
-  MENU_PROPERTIES,
-  MENU_TYPES,
-  MENU_CRITERIAS,
-} from '../constants/menus.js';
+import { MENU_LIST, MENU_CRITERIAS } from '../constants/menus.js';
 import { ERROR_MESSAGES } from '../constants/messages.js';
 import { REGEXS } from '../constants/regexs.js';
 import { SEPARATORS } from '../constants/separators.js';
 import {
   getOrderedMenusCounts,
   getOrderedMenusNames,
+  isDrinkMenu,
   throwError,
 } from '../utils/general.js';
 
@@ -76,13 +72,9 @@ class InputValidator {
 
   static validateOnlyDrinkInOrderedMenus(menus) {
     const orderedMenuNames = getOrderedMenusNames(menus);
-    if (orderedMenuNames.every(this.validateIsMenuDrink))
+    if (orderedMenuNames.every(isDrinkMenu))
       throwError(ERROR_MESSAGES.ONLY_DRINK);
     return true;
-  }
-
-  static validateIsMenuDrink(menuName) {
-    return MENU_LIST[menuName][MENU_PROPERTIES.MENU_TYPE] === MENU_TYPES.DRINK;
   }
 
   static validateTotalCounts(menus) {
