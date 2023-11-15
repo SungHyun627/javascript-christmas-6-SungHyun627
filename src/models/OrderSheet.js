@@ -3,9 +3,9 @@ import { DISCOUNT_EVENTS_DATES } from '../constants/dates.js';
 import { DISCOUNT_UNITS, DISCOUNT_AMOUNTS } from '../constants/discounts.js';
 import { GIFT_MENUS, GIFT_AMOUNTS } from '../constants/gifts.js';
 import { MENU_PROPERTIES, MENU_LIST, MENU_TYPES } from '../constants/menus.js';
-import DiscountEventValidator from '../validator/DiscountEventValidator.js';
-import EventBadgeValidator from '../validator/EventBadgeValidator.js';
-import GiftEventValidator from '../validator/GiftEventValidator.js';
+import DiscountEventValidator from '../validators/DiscountEventValidator.js';
+import EventBadgeValidator from '../validators/EventBadgeValidator.js';
+import GiftEventValidator from '../validators/GiftEventValidator.js';
 class OrderSheet {
   #visitDate;
   #orderedMenus;

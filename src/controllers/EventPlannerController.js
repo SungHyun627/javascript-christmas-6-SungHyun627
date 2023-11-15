@@ -1,11 +1,11 @@
-import InputView from '../view/InputView.js';
-import InputValidator from '../validator/InputValidator.js';
-import OutputView from '../view/OutputView.js';
+import InputView from '../views/InputView.js';
+import InputValidator from '../validators/InputValidator.js';
+import OutputView from '../views/OutputView.js';
 import {
   removeWhiteSpaceFromBothEndsOfString,
   getOrderedMenusObject,
 } from '../utils/general.js';
-import OrderSheet from '../model/OrderSheet.js';
+import OrderSheet from '../models/OrderSheet.js';
 import { formatResult } from '../utils/formatting.js';
 
 class EventPlannerController {
