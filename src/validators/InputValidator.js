@@ -10,13 +10,13 @@ import {
 } from '../utils/general.js';
 
 class InputValidator {
-  static validateVisitDate(visitDate) {
+  validateVisitDate(visitDate) {
     if (!REGEXS.VISIT_DATE_REGEX.test(visitDate))
       throwError(ERROR_MESSAGES.NOT_VALID_VISIT_DATE);
     return true;
   }
 
-  static validateOrderedMenus(menus) {
+  validateOrderedMenus(menus) {
     this.validateOrderedMenusInputFormat(menus);
     this.validateEveryOrderedMenuInMenuList(menus);
     this.validateEveryOrderedMenuCountIsBiggerThanZero(menus);
@@ -27,57 +27,57 @@ class InputValidator {
     return true;
   }
 
-  static validateOrderedMenusInputFormat(menus) {
+  validateOrderedMenusInputFormat(menus) {
     return menus
       .split(SEPARATORS.MENU_SEPARATOR)
       .every(this.validateOrderedMenuFormat);
   }
 
-  static validateOrderedMenuFormat(menu) {
+  validateOrderedMenuFormat(menu) {
     if (!REGEXS.MENU_REGEX.test(menu))
       throwError(ERROR_MESSAGES.NOT_VALID_MENUS);
     return true;
   }
 
-  static validateEveryOrderedMenuInMenuList(menus) {
+  validateEveryOrderedMenuInMenuList(menus) {
     const orderedMenuNames = getOrderedMenusNames(menus);
     return orderedMenuNames.every(this.validateOrderedMenuInMenuList);
   }
 
-  static validateOrderedMenuInMenuList(menu) {
+  validateOrderedMenuInMenuList(menu) {
     const menuNames = Object.keys(MENU_LIST);
     if (!menuNames.includes(menu)) throwError(ERROR_MESSAGES.NOT_VALID_MENUS);
     return true;
   }
 
-  static validateEveryOrderedMenuCountIsBiggerThanZero(menus) {
+  validateEveryOrderedMenuCountIsBiggerThanZero(menus) {
     const orderedMenusCounts = getOrderedMenusCounts(menus);
     return orderedMenusCounts.every(
       this.validateOrderedMenuCountIsBiggerThanZero
     );
   }
 
-  static validateOrderedMenuCountIsBiggerThanZero(menuCount) {
+  validateOrderedMenuCountIsBiggerThanZero(menuCount) {
     if (menuCount < MENU_CRITERIAS.MIN_ORDERED_MENU_COUNT)
       throwError(ERROR_MESSAGES.NOT_VALID_MENUS);
     return true;
   }
 
-  static validateIsDuplicatedMenuName(menus) {
+  validateIsDuplicatedMenuName(menus) {
     const orderedMenuNames = getOrderedMenusNames(menus);
     if (orderedMenuNames.length !== new Set(orderedMenuNames).size)
       throwError(ERROR_MESSAGES.NOT_VALID_MENUS);
     return true;
   }
 
-  static validateOnlyDrinkInOrderedMenus(menus) {
+  validateOnlyDrinkInOrderedMenus(menus) {
     const orderedMenuNames = getOrderedMenusNames(menus);
     if (orderedMenuNames.every(isDrinkMenu))
       throwError(ERROR_MESSAGES.ONLY_DRINK);
     return true;
   }
 
-  static validateTotalCounts(menus) {
+  validateTotalCounts(menus) {
     const orderedMenuCounts = getOrderedMenusCounts(menus);
     const totalCounts = orderedMenuCounts.reduce(
       (acc, curCount) => acc + curCount,

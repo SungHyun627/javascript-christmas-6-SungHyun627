@@ -56,8 +56,9 @@ class OrderSheet {
 
   getTotalDiscountAmount() {
     const totalOrderAmount = this.getTotalOrderAmount();
+    const discountEventValidator = new DiscountEventValidator();
 
-    return DiscountEventValidator.isDiscountEventApplicable(totalOrderAmount)
+    return discountEventValidator.isDiscountEventApplicable(totalOrderAmount)
       ? this.getChristmasDdayDiscountAmount() +
           this.getWeekDayDiscountAmount() +
           this.getWeekendDiscountAmount() +
@@ -67,7 +68,9 @@ class OrderSheet {
 
   getGiftAmount() {
     const totalOrderAmount = this.getTotalOrderAmount();
-    return GiftEventValidator.isGiftEventApplicable(totalOrderAmount)
+    const giftEventValidator = new GiftEventValidator();
+
+    return giftEventValidator.isGiftEventApplicable(totalOrderAmount)
       ? MENU_LIST[GIFT_MENUS.GIFT_MENU][MENU_PROPERTIES.MENU_PRICE]
       : GIFT_AMOUNTS.ZERO_GIFT_AMOUNT;
   }
@@ -82,18 +85,20 @@ class OrderSheet {
 
   getEventBadge() {
     const totalBenefitAmount = this.getTotalBenefitAmount();
-    if (EventBadgeValidator.isStarBadgeGettable(totalBenefitAmount))
+    const eventBadgeValidator = new EventBadgeValidator();
+    if (eventBadgeValidator.isStarBadgeGettable(totalBenefitAmount))
       return BADGES.STAR;
-    if (EventBadgeValidator.isTreeBadgeGettable(totalBenefitAmount))
+    if (eventBadgeValidator.isTreeBadgeGettable(totalBenefitAmount))
       return BADGES.TREE;
-    if (EventBadgeValidator.isSantaBadgeGettable(totalBenefitAmount))
+    if (eventBadgeValidator.isSantaBadgeGettable(totalBenefitAmount))
       return BADGES.SANTA;
     return BADGES.NOT_MATCHED_BADGE;
   }
 
   getChristmasDdayDiscountAmount() {
     const visitDate = this.getVisitDate();
-    return DiscountEventValidator.isChristmasDdayDiscountApplicable(visitDate)
+    const discountEventValidator = new DiscountEventValidator();
+    return discountEventValidator.isChristmasDdayDiscountApplicable(visitDate)
       ? DISCOUNT_AMOUNTS.INITIAL_CHRISTMAS_DDAY_DISCOUNT_AMOUNT +
           (visitDate -
             DISCOUNT_EVENTS_DATES.CHRISTMAS_DDAY_DISCOUNT_START_DATE) *
@@ -104,7 +109,8 @@ class OrderSheet {
   getWeekDayDiscountAmount() {
     const visitDate = this.getVisitDate();
     const countOfDessertMenus = this.getCountOfMenuType(MENU_TYPES.DESSERT);
-    return DiscountEventValidator.isWeekDayDiscountApplicable(visitDate)
+    const discountEventValidator = new DiscountEventValidator();
+    return discountEventValidator.isWeekDayDiscountApplicable(visitDate)
       ? countOfDessertMenus * DISCOUNT_UNITS.WEEKDAY_DISCOUNT_UNIT
       : 0;
   }
@@ -112,14 +118,16 @@ class OrderSheet {
   getWeekendDiscountAmount() {
     const visitDate = this.getVisitDate();
     const countOfMainDishMenus = this.getCountOfMenuType(MENU_TYPES.MAIN_DISH);
-    return DiscountEventValidator.isWeekendDiscountApplicable(visitDate)
+    const discountEventValidator = new DiscountEventValidator();
+    return discountEventValidator.isWeekendDiscountApplicable(visitDate)
       ? countOfMainDishMenus * DISCOUNT_UNITS.WEEKEND_DISCOUNT_UNIT
       : 0;
   }
 
   getSpecialDiscountAmount() {
     const visitDate = this.getVisitDate();
-    return DiscountEventValidator.isSpecialDiscountApplicable(visitDate)
+    const discountEventValidator = new DiscountEventValidator();
+    return discountEventValidator.isSpecialDiscountApplicable(visitDate)
       ? DISCOUNT_AMOUNTS.SPECIAL_DISCOUNT_AMOUNT
       : 0;
   }

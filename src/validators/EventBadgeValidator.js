@@ -1,21 +1,21 @@
 import { BADGE_CRITERIAS } from '../constants/badges.js';
 
 class EventBadgeValidator {
-  static isStarBadgeGettable(totalBenefitAmount) {
+  isStarBadgeGettable(totalBenefitAmount) {
     return (
       totalBenefitAmount >= BADGE_CRITERIAS.STAR &&
       totalBenefitAmount < BADGE_CRITERIAS.TREE
     );
   }
 
-  static isTreeBadgeGettable(totalBenefitAmount) {
+  isTreeBadgeGettable(totalBenefitAmount) {
     return (
       totalBenefitAmount >= BADGE_CRITERIAS.TREE &&
       totalBenefitAmount < BADGE_CRITERIAS.SANTA
     );
   }
 
-  static isSantaBadgeGettable(totalBenefitAmount) {
+  isSantaBadgeGettable(totalBenefitAmount) {
     return totalBenefitAmount >= BADGE_CRITERIAS.SANTA;
   }
 }
